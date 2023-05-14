@@ -33,8 +33,8 @@ class MatchTest {
         match.player2ScorePoint()
         match.player2ScorePoint()
 
-        assertEquals(40, match.getPlayer1PointsScore())
-        assertEquals(40, match.getPlayer2PointsScore())
+        assertEquals(40, match.getPlayer1Score().getPointsScore())
+        assertEquals(40, match.getPlayer2Score().getPointsScore())
     }
 
     @Test
@@ -52,8 +52,8 @@ class MatchTest {
 
         match.player2ScorePoint()
 
-        //assertEquals(true, player2Score.hasAdvantage())
-        //assertEquals(false, player1Score.hasAdvantage())
+        assertEquals(true, match.getPlayer2Score().hasAdvantage())
+        assertEquals(false, match.getPlayer1Score().hasAdvantage())
     }
 
     @Test
@@ -72,8 +72,8 @@ class MatchTest {
         match.player2ScorePoint()
         match.player1ScorePoint()
 
-        //assertEquals(false, player1Score.hasAdvantage())
-        //assertEquals(false, player2Score.hasAdvantage())
+        assertEquals(false, match.getPlayer1Score().hasAdvantage())
+        assertEquals(false, match.getPlayer2Score().hasAdvantage())
     }
 
     @Test
@@ -93,8 +93,8 @@ class MatchTest {
         match.player1ScorePoint()
         match.player1ScorePoint()
 
-        //assertEquals(true, player1Score.hasAdvantage())
-        //assertEquals(false, player2Score.hasAdvantage())
+        assertEquals(true, match.getPlayer1Score().hasAdvantage())
+        assertEquals(false, match.getPlayer2Score().hasAdvantage())
     }
 
     @Test
@@ -115,7 +115,7 @@ class MatchTest {
         match.player1ScorePoint()
         match.player1ScorePoint()
 
-        assertEquals(0, match.getPlayer1PointsScore())
+        assertEquals(0, match.getPlayer1Score().getPointsScore())
     }
 
     @Test
@@ -136,7 +136,11 @@ class MatchTest {
         match.player1ScorePoint()
         match.player1ScorePoint()
 
-        assertEquals(0, match.getPlayer2PointsScore())
+
+
+        assertEquals(0, match.getPlayer2Score().getPointsScore())
+
+
     }
 
 }
