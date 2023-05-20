@@ -4,24 +4,25 @@ class Player(
     name: String
 ) {
     private var setCursor = 0
-    private var pointsScore = 0
-    private val gameScore = mutableListOf(0,0)
+    private var points = 0
+    private var games = 0
+    private val sets = mutableListOf(0,0,0)
     private var hasAdvantage = false
 
     fun winPoint() {
-        when (pointsScore) {
-            0 -> { pointsScore = 15 }
-            15 -> { pointsScore = 30 }
-            30 -> { pointsScore = 40 }
-            40 -> { pointsScore += 1 }
+        when (points) {
+            0 -> { points = 15 }
+            15 -> { points = 30 }
+            30 -> { points = 40 }
+            40 -> { points += 1 }
         }
     }
 
     fun losePoint() {
-        when (pointsScore) {
-            15 -> { pointsScore = 0 }
-            30 -> { pointsScore = 15 }
-            40 -> { pointsScore = 30 }
+        when (points) {
+            15 -> { points = 0 }
+            30 -> { points = 15 }
+            40 -> { points = 30 }
         }
     }
 
@@ -29,19 +30,34 @@ class Player(
 
     fun removeAdvantage() { hasAdvantage = false }
 
-    private fun winGame() {
-        gameScore[setCursor] += 1
-        if (gameScore[setCursor] == 6 && setCursor < (gameScore.size - 1)) setCursor++
-    }
-
     fun nextSet() {
-        if (setCursor < (gameScore.size - 1)) setCursor += 1
-        pointsScore = 0
+        if (setCursor < (sets.size - 1)) setCursor += 1
+        points = 0
     }
 
-    fun getPointsScore() = pointsScore
+    fun nextGame() {
+        points=0
+    }
 
-    fun getSet() = setCursor
-    fun getGameScore() = gameScore
+    fun winGame() {
+        games += 1
+    }
+
+    fun getGames(): Int = games
+
+    fun getPoints(): Int = points
+
+    fun getSetCursor(): Int = setCursor
+    fun getSets() = sets
+
+    fun winSet() {
+        sets[setCursor] += 1
+        //if (sets[setCursor] == 6 && setCursor < (sets.size - 1)) setCursor++
+    }
+
+    fun addSet() {
+        sets.add(0)
+    }
+
     fun hasAdvantage() = hasAdvantage
 }

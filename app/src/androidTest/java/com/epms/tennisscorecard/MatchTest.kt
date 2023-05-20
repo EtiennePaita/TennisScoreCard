@@ -16,8 +16,8 @@ class MatchTest {
         player1Score.winPoint()
         player1Score.winPoint()
         player2Score.winPoint()
-        assertEquals(15, player2Score.getPointsScore())
-        assertEquals(40, player1Score.getPointsScore())
+        assertEquals(15, player2Score.getPoints())
+        assertEquals(40, player1Score.getPoints())
     }
 
     @Test
@@ -43,13 +43,16 @@ class MatchTest {
         val match = Match(player1, player2)
 
         match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player2, player1)
-        match.playerScoring(player2, player1)
         match.playerScoring(player2, player1)
 
-        //assertEquals(true, player2Score.hasAdvantage())
+        match.playerScoring(player1, player2)
+        match.playerScoring(player2, player1)
+
+        match.playerScoring(player1, player2)
+        match.playerScoring(player2, player1)
+
+
+        assertEquals(true, player2.hasAdvantage())
         //assertEquals(false, player1Score.hasAdvantage())
     }
 
@@ -135,5 +138,153 @@ class MatchTest {
         match.playerScoring(player1, player2)
 
         assertEquals(0, match.getPlayer2PointsScore())
+    }
+
+    @Test
+    fun checkIfMatchIsEnded() {
+        val player1: Player = Player("Jean")
+        val player2: Player = Player("Paul")
+        val match = Match(player1, player2)
+
+        // SET 1
+        // Game 1
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+        // Game 2
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+        // Game 3
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+        // Game 4
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+        // Game 5
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+        // Game 6
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+
+        // SET 2
+        // Game 1
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+        // Game 2
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+        // Game 3
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+        // Game 4
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+        // Game 5
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+        // Game 6
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+
+        assertEquals(true, match.stateSet(team1 = player1, team2 = player2))
+    }
+
+
+    @Test
+    fun checkWhoWin() {
+        val player1: Player = Player("Jean")
+        val player2: Player = Player("Paul")
+        val match = Match(player1, player2)
+
+        // SET 1
+        // Game 1
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+        // Game 2
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+        // Game 3
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+        // Game 4
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+        // Game 5
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+        // Game 6
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+
+        // SET 2
+        // Game 1
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+        // Game 2
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+        // Game 3
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+        // Game 4
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+        // Game 5
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+        // Game 6
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.playerScoring(player1, player2)
+        match.stateSet(team1 = player1, team2 = player2)
+
+        assertEquals(player1, match.whoWin(team1 = player1, team2 = player2))
+
     }
 }

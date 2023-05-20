@@ -12,7 +12,7 @@ internal class PlayerTest {
     fun win1PointShouldScore15() {
         val playerScore = Player("John Smith")
         playerScore.winPoint()
-        assertEquals(15, playerScore.getPointsScore())
+        assertEquals(15, playerScore.getPoints())
     }
 
     @Test
@@ -20,7 +20,7 @@ internal class PlayerTest {
         val playerScore = Player("John Smith")
         playerScore.winPoint()
         playerScore.winPoint()
-        assertEquals(30, playerScore.getPointsScore())
+        assertEquals(30, playerScore.getPoints())
     }
 
     @Test
@@ -29,7 +29,7 @@ internal class PlayerTest {
         playerScore.winPoint()
         playerScore.winPoint()
         playerScore.winPoint()
-        assertEquals(40, playerScore.getPointsScore())
+        assertEquals(40, playerScore.getPoints())
     }
 
     @Test
@@ -39,7 +39,7 @@ internal class PlayerTest {
         playerScore.winPoint()
         playerScore.winPoint()
         playerScore.winPoint()
-        assertEquals(0, playerScore.getPointsScore())
+        assertEquals(0, playerScore.getPoints())
     }
 
     @Test
@@ -49,7 +49,7 @@ internal class PlayerTest {
         playerScore.winPoint()
         playerScore.winPoint()
         playerScore.winPoint()
-        assertEquals(listOf(1,0), playerScore.getGameScore())
+        assertEquals(listOf(1,0), playerScore.getSets())
     }
 
     @Test
@@ -58,7 +58,7 @@ internal class PlayerTest {
         for (i in 0 until 24) {
             playerScore.winPoint()
         }
-        assertEquals(listOf(6,0), playerScore.getGameScore())
+        assertEquals(listOf(6,0), playerScore.getSets())
     }
 
     @Test
@@ -67,8 +67,8 @@ internal class PlayerTest {
         for (i in 0 until 27) {
             playerScore.winPoint()
         }
-        assertEquals(listOf(6,0), playerScore.getGameScore())
-        assertEquals(40, playerScore.getPointsScore())
+        assertEquals(listOf(6,0), playerScore.getSets())
+        assertEquals(40, playerScore.getPoints())
     }
 
     @Test
@@ -77,7 +77,7 @@ internal class PlayerTest {
         for (i in 0 until 28) {
             playerScore.winPoint()
         }
-        assertEquals(listOf(6,1), playerScore.getGameScore())
+        assertEquals(listOf(6,1), playerScore.getSets())
     }
 
     @Test
@@ -86,7 +86,7 @@ internal class PlayerTest {
         for (i in 0 until 48) {
             playerScore.winPoint()
         }
-        assertEquals(listOf(6,6), playerScore.getGameScore())
+        assertEquals(listOf(6,6), playerScore.getSets())
     }
 
     @Test
@@ -95,6 +95,6 @@ internal class PlayerTest {
         for (i in 0 until 52) {
             playerScore.winPoint()
         }
-        assertEquals(listOf(6,7), playerScore.getGameScore())
+        assertEquals(listOf(6,7), playerScore.getSets())
     }
 }
