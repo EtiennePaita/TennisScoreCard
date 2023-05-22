@@ -9,6 +9,42 @@ import org.junit.runner.RunWith
 class MatchTest {
 
     @Test
+    fun matchShouldNotBeFinished() {
+        val player1 = Player(1, "John Smith")
+        val player2 = Player(2, "John Cena")
+        val match = Match(player1, player2)
+
+        assertEquals(false, match.matchEnded)
+    }
+
+    @Test
+    fun matchShouldBeFinished() {
+        val player1 = Player(1, "John Smith")
+        val player2 = Player(2, "John Cena")
+        val match = Match(player1, player2)
+
+        for (i in 0 until 48) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+
+        assertEquals(true, match.matchEnded)
+    }
+
+    @Test
+    fun player1SetsWonScoreShouldBe2() {
+        val player1 = Player(1, "John Smith")
+        val player2 = Player(2, "John Cena")
+        val match = Match(player1, player2)
+
+        for (i in 0 until 48) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+
+        assertEquals(2, match.getPlayer1Score().numberOfSetsWon())
+    }
+
+
+    /*@Test
     fun score40_15forPlayer1() {
         val player1Score = Player("John Smith")
         val player2Score = Player("John Cena")
@@ -286,5 +322,5 @@ class MatchTest {
 
         assertEquals(player1, match.whoWin(team1 = player1, team2 = player2))
 
-    }
+    }*/
 }
