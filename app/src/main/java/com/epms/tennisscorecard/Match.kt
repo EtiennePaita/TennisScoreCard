@@ -73,15 +73,11 @@ class Match(
         if (winnerScore.getCurrentSet().gameScore == 7 || (winnerScore.getCurrentSet().gameScore == 6 && loserScore.getCurrentSet().gameScore < 5)) { // win the set
             winnerScore.winSet()
             loserScore.loseSet()
-        } else if (
-            winnerScore.getCurrentSet().gameScore == 6
-            && loserScore.getCurrentSet().gameScore == 6
-        ) {
-            winnerScore.nextGame(isTieBreak = true)
-            loserScore.nextGame(isTieBreak = true)
         } else {
-            winnerScore.nextGame()
-            loserScore.nextGame()
+            val isTieBreak = winnerScore.getCurrentSet().gameScore == 6 && loserScore.getCurrentSet().gameScore == 6
+            winnerScore.nextGame(isTieBreak = isTieBreak)
+            loserScore.nextGame(isTieBreak = isTieBreak)
+            return
         }
 
         //End of match check

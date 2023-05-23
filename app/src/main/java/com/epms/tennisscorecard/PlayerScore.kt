@@ -32,7 +32,7 @@ class PlayerScore(
     }
 
     fun winGame() {
-        sets.last().gameScore++
+        sets.last().gameScore += 1
         removeAdvantage()
     }
 
