@@ -2,7 +2,7 @@ package com.epms.tennisscorecard
 
 
 //TODO : improvements :
-//              - add a builder to modify the value of WINNING_SETS (2 or 3)
+//              - add a builder to modify the value of WINNING_SETS (2 or 3) OR just a parameter
 
 class Match(
     player1: Player,
@@ -13,12 +13,15 @@ class Match(
     private val WINNING_SETS: Int = 2
     var matchEnded = false // TODO : refactor match ended
 
-    fun playerScoring(winner: Player, loser: Player) {
-        val winnerScore = findPlayerScoreOf(winner)
-        val loserScore = findPlayerScoreOf(loser)
+    fun player1Scored() {
+        playerScoring(player1Score, player2Score)
+    }
 
-        if (winner.equals(loser)) throw Exception("Winner and loser players should not be the same.")
+    fun player2Scored() {
+        playerScoring(player2Score, player1Score)
+    }
 
+    private fun playerScoring(winnerScore: PlayerScore, loserScore: PlayerScore) {
         if (winnerScore.getCurrentGame() is TieBreak) {
             tieBreakGameScoreHandler(winnerScore, loserScore)
         } else {
@@ -94,9 +97,9 @@ class Match(
 
     fun getPlayer2Score() = player2Score
 
-    private fun findPlayerScoreOf(player: Player): PlayerScore {
-        return if (player1Score.player.id == player.id) player1Score
+    private fun findPlayerScoreOf(player: Player): PlayerScore =
+        if (player1Score.player.id == player.id) player1Score
         else if (player2Score.player.id == player.id) player2Score
         else throw Exception("Player not found in this match")
-    }
+
 }

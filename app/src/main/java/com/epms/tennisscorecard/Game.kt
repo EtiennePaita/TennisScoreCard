@@ -13,7 +13,7 @@ sealed interface GameScore {
     //fun shouldWinGame(gameScore: GameScore): Boolean
 }
 
-object Game : GameScore {
+class Game : GameScore {
     private var points = 0
     //private var hasAdvantage = false
 
@@ -22,17 +22,14 @@ object Game : GameScore {
             0 -> { points = 15 }
             15 -> { points = 30 }
             30 -> { points = 40 }
-            40 -> {
-                //winGame()
-                //points = 0
-            }
+            40 -> { }
         }
     }
 
     override fun getPoints(): Int = points
 }
 
-object TieBreak : GameScore {
+class TieBreak : GameScore {
     private var points: Int = 0
 
     override fun winPoint() {

@@ -8,6 +8,65 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class MatchTest {
 
+
+    @Test
+    fun player1And2GameScorePointsShouldBe0() {
+        val player1 = Player(1, "John Smith")
+        val player2 = Player(2, "John Cena")
+        val match = Match(player1, player2)
+
+        assertEquals(0, match.getPlayer1Score().getPoints())
+        assertEquals(0, match.getPlayer2Score().getPoints())
+    }
+
+    @Test
+    fun player1GameScorePointsShouldBe15() {
+        val player1 = Player(1, "John Smith")
+        val player2 = Player(2, "John Cena")
+        val match = Match(player1, player2)
+
+        match.player1Scored()
+
+        assertEquals(15, match.getPlayer1Score().getPoints())
+    }
+
+    @Test
+    fun player2GameScorePointsShouldBe0() {
+        val player1 = Player(1, "John Smith")
+        val player2 = Player(2, "John Cena")
+        val match = Match(player1, player2)
+
+        match.player1Scored()
+
+        assertEquals(0, match.getPlayer2Score().getPoints())
+    }
+
+    @Test
+    fun player1GameScorePointsShouldBe40() {
+        val player1 = Player(1, "John Smith")
+        val player2 = Player(2, "John Cena")
+        val match = Match(player1, player2)
+
+        match.player1Scored()
+        match.player1Scored()
+        match.player1Scored()
+
+        assertEquals(40, match.getPlayer1Score().getPoints())
+    }
+
+    @Test
+    fun player1SetsWonScoreShouldBe2() {
+        val player1 = Player(1, "John Smith")
+        val player2 = Player(2, "John Cena")
+        val match = Match(player1, player2)
+
+        for (i in 0 until 48) {
+            match.player1Scored()
+        }
+
+        assertEquals(2, match.getPlayer1Score().numberOfSetsWon())
+    }
+
     @Test
     fun matchShouldNotBeFinished() {
         val player1 = Player(1, "John Smith")
@@ -24,23 +83,29 @@ class MatchTest {
         val match = Match(player1, player2)
 
         for (i in 0 until 48) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.player1Scored()
         }
 
         assertEquals(true, match.matchEnded)
     }
 
+
     @Test
-    fun player1SetsWonScoreShouldBe2() {
+    fun player1SetGamesWonShouldBe2() {
         val player1 = Player(1, "John Smith")
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
 
-        for (i in 0 until 48) {
-            match.playerScoring(winner = player1, loser = player2)
-        }
+        match.player1Scored()
+        match.player1Scored()
+        match.player1Scored()
+        match.player1Scored()
+        match.player1Scored()
+        match.player1Scored()
+        match.player1Scored()
+        match.player1Scored()
 
-        assertEquals(2, match.getPlayer1Score().numberOfSetsWon())
+        assertEquals(2, match.getPlayer1Score().getCurrentSet().gameScore)
     }
 
 

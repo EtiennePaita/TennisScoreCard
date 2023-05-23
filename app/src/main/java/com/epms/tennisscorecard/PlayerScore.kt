@@ -4,7 +4,7 @@ package com.epms.tennisscorecard
 class PlayerScore(
     val player: Player
 ) {
-    private var currentGame: GameScore = Game
+    private var currentGame: GameScore = Game()
     private val sets = mutableListOf(Set())
     private var hasAdvantage = false
 
@@ -37,7 +37,7 @@ class PlayerScore(
     }
 
     fun nextGame(isTieBreak: Boolean = false) {
-        currentGame = if (isTieBreak) TieBreak else Game
+        currentGame = if (isTieBreak) TieBreak() else Game()
         removeAdvantage()
     }
 
