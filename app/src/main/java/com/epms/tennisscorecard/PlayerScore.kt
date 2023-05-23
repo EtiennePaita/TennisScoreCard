@@ -48,6 +48,8 @@ class PlayerScore(
 
     fun getCurrentSet() = sets.last()
 
+    fun getSets() = sets
+
     fun numberOfSetsWon(): Int {
         var counter = 0
         sets.forEach { if (it.isWon == true) counter++ }
@@ -55,13 +57,5 @@ class PlayerScore(
     }
 
     fun hasAdvantage() = hasAdvantage
-
-    /*fun copyWith(
-        currentGameScore: GameScore? = null,
-        sets: List<Set>? = null,
-        hasAdvantage: Boolean? = null
-    ): PlayerScore {
-        return PlayerScore()
-    }*/
 
 }

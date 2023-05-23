@@ -2,41 +2,46 @@ package com.epms.tennisscorecard
 
 
 //TODO : improvements :
-//              - add a builder to modify the value of WINNING_SETS (2 or 3) OR just a parameter
+//              - add an observer for the match state
+//              - Custom exceptions
 
 class Match(
     player1: Player,
-    player2: Player
+    player2: Player,
+    private val winningSets: Int = 2 //TODO :  => Throw error if > 3 or < 2 ?
 ) {
     private val player1Score: PlayerScore = PlayerScore(player1)
     private val player2Score: PlayerScore = PlayerScore(player2)
-    private val WINNING_SETS: Int = 2
-    var matchEnded = false // TODO : refactor match ended
+    private var matchFinished = false // TODO : refactor match ended
 
-    fun player1Scored() {
-        playerScoring(player1Score, player2Score)
-    }
 
-    fun player2Scored() {
-        playerScoring(player2Score, player1Score)
-    }
+    /**
+     * This function scores a point for the winner
+     *
+     * @param winner player that just win the point
+     * @param loser player that just lose the point
+     */
+    @Throws(Exception::class)
+    fun playerScoring(winner: Player, loser: Player) { // TODO : remove loser ? we can have it by picking the player which the id doesn't match
+        if (winner.equals(loser)) throw Exception("Winner and loser players should not be the same.")
+        //TODO :  => Throw error when matchFinished ?
 
-    private fun playerScoring(winnerScore: PlayerScore, loserScore: PlayerScore) {
+        val winnerScore = findPlayerScoreOf(winner)
+        val loserScore = findPlayerScoreOf(loser)
+
         if (winnerScore.getCurrentGame() is TieBreak) {
             tieBreakGameScoreHandler(winnerScore, loserScore)
         } else {
             gameScoreHandler(winnerScore, loserScore)
         }
-
-
-        // TODO :
-        //      - check le set en cours pour voir si gagné ou non
-        //      - check si le match est fini ou non
-        //          - si un player a 2 (ou 3) set isWon = true -> MATCH ENDED
-        //          - sinon, si un playerScore.last() != null -> nextSet()
-
     }
 
+    /**
+     * This function handles the game score on a tieBreak. Win a point and check if the game is won.
+     *
+     * @param winnerScore player that just win the point
+     * @param loserScore player that just lose the point
+     */
     private fun tieBreakGameScoreHandler(winnerScore: PlayerScore, loserScore: PlayerScore) {
         winnerScore.winPoint()
         if (winnerScore.getPoints() >= 7 && (winnerScore.getPoints() - loserScore.getPoints()) >= 2) {
@@ -45,6 +50,13 @@ class Match(
         }
     }
 
+    /**
+     * This function handles the game score on a regular game. Win a point and check if the game is
+     * won.
+     *
+     * @param winnerScore player that just win the point
+     * @param loserScore player that just lose the point
+     */
     private fun gameScoreHandler(winnerScore: PlayerScore, loserScore: PlayerScore) {
         if (winnerScore.getPoints() == 40 && loserScore.getPoints() == 40) {
             if (winnerScore.hasAdvantage()) {
@@ -81,21 +93,35 @@ class Match(
         }
 
         //End of match check
-        if (winnerScore.numberOfSetsWon() == WINNING_SETS) {
-            matchEnded = true
+        if (winnerScore.numberOfSetsWon() == winningSets) {
+            matchFinished = true
         } else {
             winnerScore.nextSet()
             loserScore.nextSet()
         }
     }
 
+    //TODO : create interface to get player scores on tests ? IDK
+
+    //Only for testing
     fun getPlayer1Score() = player1Score
 
+    //Only for testing
     fun getPlayer2Score() = player2Score
 
+    fun isMatchFinished() = matchFinished
+
+    /**
+     * This function search the [PlayerScore] of a player in the match and throw an exception if
+     * the player is not found.
+     *
+     * @param player
+     * @return the [PlayerScore] of the same player
+     */
+    @Throws(Exception::class)
     private fun findPlayerScoreOf(player: Player): PlayerScore =
         if (player1Score.player.id == player.id) player1Score
         else if (player2Score.player.id == player.id) player2Score
-        else throw Exception("Player not found in this match")
+        else throw Exception("Player not found in this match") //NullPointerException ?
 
 }

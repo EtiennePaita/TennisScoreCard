@@ -2,12 +2,23 @@ package com.epms.tennisscorecard
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertThrows
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class MatchTest {
 
+    @Test
+    fun player1EqualsPlayer2ShouldThrowError() {
+        val player1 = Player(1, "John Smith")
+        val player2 = Player(2, "John Cena")
+        val match = Match(player1, player2)
+
+        assertThrows(Exception::class.java) {
+            match.playerScoring(player1, player1)
+        }
+    }
 
     @Test
     fun player1And2GameScorePointsShouldBe0() {
@@ -25,7 +36,7 @@ class MatchTest {
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
 
-        match.player1Scored()
+        match.playerScoring(winner = player1, loser = player2)
 
         assertEquals(15, match.getPlayer1Score().getPoints())
     }
@@ -36,7 +47,7 @@ class MatchTest {
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
 
-        match.player1Scored()
+        match.playerScoring(winner = player1, loser = player2)
 
         assertEquals(0, match.getPlayer2Score().getPoints())
     }
@@ -47,9 +58,9 @@ class MatchTest {
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
 
-        match.player1Scored()
-        match.player1Scored()
-        match.player1Scored()
+        match.playerScoring(winner = player1, loser = player2)
+        match.playerScoring(winner = player1, loser = player2)
+        match.playerScoring(winner = player1, loser = player2)
 
         assertEquals(40, match.getPlayer1Score().getPoints())
     }
@@ -61,7 +72,7 @@ class MatchTest {
         val match = Match(player1, player2)
 
         for (i in 0 until 48) {
-            match.player1Scored()
+            match.playerScoring(winner = player1, loser = player2)
         }
 
         assertEquals(2, match.getPlayer1Score().numberOfSetsWon())
@@ -73,7 +84,7 @@ class MatchTest {
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
 
-        assertEquals(false, match.matchEnded)
+        assertEquals(false, match.isMatchFinished())
     }
 
     @Test
@@ -83,10 +94,171 @@ class MatchTest {
         val match = Match(player1, player2)
 
         for (i in 0 until 48) {
-            match.player1Scored()
+            match.playerScoring(winner = player1, loser = player2)
         }
 
-        assertEquals(true, match.matchEnded)
+        assertEquals(true, match.isMatchFinished())
+    }
+
+    @Test
+    fun matchWithTieBreakShouldBeFinished() {
+        val player1 = Player(1, "John Smith")
+        val player2 = Player(2, "John Cena")
+        val match = Match(player1, player2)
+
+        //First set
+        for (i in 0 until 24) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+
+        //First set 6 - 6
+        for (i in 0 until 20) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+        for (i in 0 until 20) {
+            match.playerScoring(winner = player2, loser = player1)
+        }
+        for (i in 0 until 4) {
+            match.playerScoring(winner = player2, loser = player1)
+        }
+        for (i in 0 until 4) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+
+
+        //TieBreak
+        for (i in 0 until 7) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+
+        assertEquals(true, match.isMatchFinished())
+    }
+
+    @Test
+    fun matchWithLongTieBreakShouldBeFinished() {
+        val player1 = Player(1, "John Smith")
+        val player2 = Player(2, "John Cena")
+        val match = Match(player1, player2)
+
+        for (i in 0 until 24) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+        //First set
+        for (i in 0 until 24) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+
+        //First set 6 - 6
+        for (i in 0 until 20) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+        for (i in 0 until 20) {
+            match.playerScoring(winner = player2, loser = player1)
+        }
+        for (i in 0 until 4) {
+            match.playerScoring(winner = player2, loser = player1)
+        }
+        for (i in 0 until 4) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+
+
+        //TieBreak
+        for (i in 0 until 7) {
+            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player2, loser = player1)
+        }
+
+        match.playerScoring(winner = player1, loser = player2)
+        match.playerScoring(winner = player1, loser = player2)
+
+        assertEquals(true, match.isMatchFinished())
+    }
+
+    @Test
+    fun matchWithTieBreakShouldNotBeFinished() {
+        val player1 = Player(1, "John Smith")
+        val player2 = Player(2, "John Cena")
+        val match = Match(player1, player2)
+
+        //First set
+        for (i in 0 until 24) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+
+        //First set 6 - 6
+        for (i in 0 until 20) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+        for (i in 0 until 20) {
+            match.playerScoring(winner = player2, loser = player1)
+        }
+        for (i in 0 until 4) {
+            match.playerScoring(winner = player2, loser = player1)
+        }
+        for (i in 0 until 4) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+
+        assertEquals(false, match.isMatchFinished())
+    }
+    @Test
+    fun matchWithTieBreakPlayer1EndScoreShouldBe6_7() {
+        val player1 = Player(1, "John Smith")
+        val player2 = Player(2, "John Cena")
+        val match = Match(player1, player2)
+
+        //First set
+        for (i in 0 until 24) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+
+        //First set 6 - 6
+        for (i in 0 until 20) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+        for (i in 0 until 20) {
+            match.playerScoring(winner = player2, loser = player1)
+        }
+        for (i in 0 until 4) {
+            match.playerScoring(winner = player2, loser = player1)
+        }
+        for (i in 0 until 4) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+
+        //TieBreak
+        for (i in 0 until 7) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+
+        assertEquals(listOf(6,7), match.getPlayer1Score().getSets().map { it.gameScore })
+    }
+
+    @Test
+    fun matchOn3SetsShouldNotBeFinished() {
+        val player1 = Player(1, "John Smith")
+        val player2 = Player(2, "John Cena")
+        val match = Match(player1, player2, 3)
+
+        for (i in 0 until 48) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+
+        assertEquals(false, match.isMatchFinished())
+    }
+
+    @Test
+    fun matchOn3SetsShouldBeFinished() {
+        val player1 = Player(1, "John Smith")
+        val player2 = Player(2, "John Cena")
+        val match = Match(player1, player2, 3)
+
+        for (i in 0 until 72) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+
+        assertEquals(true, match.isMatchFinished())
     }
 
 
@@ -96,296 +268,15 @@ class MatchTest {
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
 
-        match.player1Scored()
-        match.player1Scored()
-        match.player1Scored()
-        match.player1Scored()
-        match.player1Scored()
-        match.player1Scored()
-        match.player1Scored()
-        match.player1Scored()
+        match.playerScoring(winner = player1, loser = player2)
+        match.playerScoring(winner = player1, loser = player2)
+        match.playerScoring(winner = player1, loser = player2)
+        match.playerScoring(winner = player1, loser = player2)
+        match.playerScoring(winner = player1, loser = player2)
+        match.playerScoring(winner = player1, loser = player2)
+        match.playerScoring(winner = player1, loser = player2)
+        match.playerScoring(winner = player1, loser = player2)
 
         assertEquals(2, match.getPlayer1Score().getCurrentSet().gameScore)
     }
-
-
-    /*@Test
-    fun score40_15forPlayer1() {
-        val player1Score = Player("John Smith")
-        val player2Score = Player("John Cena")
-        player1Score.winPoint()
-        player1Score.winPoint()
-        player1Score.winPoint()
-        player2Score.winPoint()
-        assertEquals(15, player2Score.getPoints())
-        assertEquals(40, player1Score.getPoints())
-    }
-
-    @Test
-    fun matchPlayerPointsEquals40() {
-        val player1: Player = Player("Jean")
-        val player2: Player = Player("Paul")
-        val match = Match(player1, player2)
-
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player2, player1)
-        match.playerScoring(player2, player1)
-
-        assertEquals(40, match.getPlayer1PointsScore())
-        assertEquals(40, match.getPlayer2PointsScore())
-    }
-
-    @Test
-    fun player2ShouldHaveAdvantage() {
-        val player1: Player = Player("Jean")
-        val player2: Player = Player("Paul")
-        val match = Match(player1, player2)
-
-        match.playerScoring(player1, player2)
-        match.playerScoring(player2, player1)
-
-        match.playerScoring(player1, player2)
-        match.playerScoring(player2, player1)
-
-        match.playerScoring(player1, player2)
-        match.playerScoring(player2, player1)
-
-
-        assertEquals(true, player2.hasAdvantage())
-        //assertEquals(false, player1Score.hasAdvantage())
-    }
-
-    @Test
-    fun playerPointsShouldBeEqualsTo40() {
-        val player1: Player = Player("Jean")
-        val player2: Player = Player("Paul")
-        val match = Match(player1, player2)
-
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player2, player1)
-        match.playerScoring(player2, player1)
-        match.playerScoring(player2, player1)
-
-        match.playerScoring(player2, player1)
-        match.playerScoring(player1, player2)
-
-
-        //assertEquals(false, player1Score.hasAdvantage())
-        //assertEquals(false, player2Score.hasAdvantage())
-    }
-
-    @Test
-    fun player1ShouldHaveAdvantage() {
-        val player1: Player = Player("Jean")
-        val player2: Player = Player("Paul")
-        val match = Match(player1, player2)
-
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player2, player1)
-        match.playerScoring(player2, player1)
-        match.playerScoring(player2, player1)
-
-        match.playerScoring(player2, player1)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-
-        //assertEquals(true, player1Score.hasAdvantage())
-        //assertEquals(false, player2Score.hasAdvantage())
-    }
-
-    @Test
-    fun player1ScoreShouldBe0() {
-        val player1: Player = Player("Jean")
-        val player2: Player = Player("Paul")
-        val match = Match(player1, player2)
-
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player2, player1)
-        match.playerScoring(player2, player1)
-        match.playerScoring(player2, player1)
-
-        match.playerScoring(player2, player1)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-
-        assertEquals(0, match.getPlayer1PointsScore())
-    }
-
-    @Test
-    fun player2ScoreShouldBe0() {
-        val player1: Player = Player("Jean")
-        val player2: Player = Player("Paul")
-        val match = Match(player1, player2)
-
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player2, player1)
-        match.playerScoring(player2, player1)
-        match.playerScoring(player2, player1)
-
-        match.playerScoring(player2, player1)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-
-        assertEquals(0, match.getPlayer2PointsScore())
-    }
-
-    @Test
-    fun checkIfMatchIsEnded() {
-        val player1: Player = Player("Jean")
-        val player2: Player = Player("Paul")
-        val match = Match(player1, player2)
-
-        // SET 1
-        // Game 1
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-        // Game 2
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-        // Game 3
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-        // Game 4
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-        // Game 5
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-        // Game 6
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-
-        // SET 2
-        // Game 1
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-        // Game 2
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-        // Game 3
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-        // Game 4
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-        // Game 5
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-        // Game 6
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-
-        assertEquals(true, match.stateSet(team1 = player1, team2 = player2))
-    }
-
-
-    @Test
-    fun checkWhoWin() {
-        val player1: Player = Player("Jean")
-        val player2: Player = Player("Paul")
-        val match = Match(player1, player2)
-
-        // SET 1
-        // Game 1
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-        // Game 2
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-        // Game 3
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-        // Game 4
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-        // Game 5
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-        // Game 6
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-
-        // SET 2
-        // Game 1
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-        // Game 2
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-        // Game 3
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-        // Game 4
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-        // Game 5
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-        // Game 6
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.playerScoring(player1, player2)
-        match.stateSet(team1 = player1, team2 = player2)
-
-        assertEquals(player1, match.whoWin(team1 = player1, team2 = player2))
-
-    }*/
 }
