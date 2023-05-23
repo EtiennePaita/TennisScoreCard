@@ -111,7 +111,7 @@ class MatchTest {
             match.playerScoring(winner = player1, loser = player2)
         }
 
-        //First set 6 - 6
+        //Second set 6 - 6
         for (i in 0 until 20) {
             match.playerScoring(winner = player1, loser = player2)
         }
@@ -140,15 +140,12 @@ class MatchTest {
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
 
-        for (i in 0 until 24) {
-            match.playerScoring(winner = player1, loser = player2)
-        }
         //First set
         for (i in 0 until 24) {
             match.playerScoring(winner = player1, loser = player2)
         }
 
-        //First set 6 - 6
+        //Second set 6 - 6
         for (i in 0 until 20) {
             match.playerScoring(winner = player1, loser = player2)
         }
@@ -176,6 +173,43 @@ class MatchTest {
     }
 
     @Test
+    fun matchWithLongTieBreakShouldNotBeFinished() {
+        val player1 = Player(1, "John Smith")
+        val player2 = Player(2, "John Cena")
+        val match = Match(player1, player2)
+
+        //First set
+        for (i in 0 until 24) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+
+        //Second set 6 - 6
+        for (i in 0 until 20) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+        for (i in 0 until 20) {
+            match.playerScoring(winner = player2, loser = player1)
+        }
+        for (i in 0 until 4) {
+            match.playerScoring(winner = player2, loser = player1)
+        }
+        for (i in 0 until 4) {
+            match.playerScoring(winner = player1, loser = player2)
+        }
+
+
+        //TieBreak
+        for (i in 0 until 7) {
+            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player2, loser = player1)
+        }
+
+        match.playerScoring(winner = player1, loser = player2)
+
+        assertEquals(false, match.isMatchFinished())
+    }
+
+    @Test
     fun matchWithTieBreakShouldNotBeFinished() {
         val player1 = Player(1, "John Smith")
         val player2 = Player(2, "John Cena")
@@ -186,7 +220,7 @@ class MatchTest {
             match.playerScoring(winner = player1, loser = player2)
         }
 
-        //First set 6 - 6
+        //Second set 6 - 6
         for (i in 0 until 20) {
             match.playerScoring(winner = player1, loser = player2)
         }
@@ -213,7 +247,7 @@ class MatchTest {
             match.playerScoring(winner = player1, loser = player2)
         }
 
-        //First set 6 - 6
+        //Second set 6 - 6
         for (i in 0 until 20) {
             match.playerScoring(winner = player1, loser = player2)
         }

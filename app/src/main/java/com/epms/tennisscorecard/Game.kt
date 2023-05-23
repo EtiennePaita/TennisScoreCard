@@ -1,5 +1,6 @@
 package com.epms.tennisscorecard
 
+//TODO
 // Ideas of improvement :
 //      - make Game a class : class Game(var hasAdvantage: Boolean)
 //      - implement shouldWinGame method for each GameScore classes
