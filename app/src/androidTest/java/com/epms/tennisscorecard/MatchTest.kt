@@ -311,4 +311,5 @@ class MatchTest {
 
         assertEquals(2, match.getPlayer1Score().getCurrentSet().gameScore)
     }
+
 }

@@ -1,6 +1,5 @@
 package com.epms.tennisscorecard
 
-
 class PlayerScore(
     val player: Player
 ) {
@@ -57,5 +56,4 @@ class PlayerScore(
     }
 
     fun hasAdvantage() = hasAdvantage
-
 }

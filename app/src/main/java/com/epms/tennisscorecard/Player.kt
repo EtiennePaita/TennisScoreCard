@@ -5,7 +5,6 @@ data class Player(
     val name: String
     //var matchesWon: Int,
     //var matchesLost: Int,
-
 ) {
     fun equals(player: Player): Boolean = this.id == player.id
 }
