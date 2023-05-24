@@ -22,7 +22,6 @@ class Match(
      * This function scores a point for the winner
      *
      * @param winner player that just win the point
-     * @param loser player that just lose the point
      */
     @Throws(Exception::class)
     fun playerScoring(winner: Player) {
@@ -59,7 +58,7 @@ class Match(
      * @param loserScore player that just lose the point
      */
     private fun gameScoreHandler(winnerScore: PlayerScore, loserScore: PlayerScore) {
-        if (winnerScore.getPoints() == 40 && loserScore.getPoints() == 40) {
+        if (winnerScore.getPoints() == 40 && loserScore.getPoints() == 40) { // handle advantages
             if (winnerScore.hasAdvantage()) {
                 winnerScore.winGame()
                 matchContinuationManager(winnerScore, loserScore)
@@ -68,7 +67,7 @@ class Match(
             } else {
                 winnerScore.giveAdvantage()
             }
-        } else if (winnerScore.getPoints() == 40 && loserScore.getPoints() < 40) {
+        } else if (winnerScore.getPoints() == 40 && loserScore.getPoints() < 40) { // win this game
             winnerScore.winGame()
             matchContinuationManager(winnerScore, loserScore)
         } else {
@@ -93,7 +92,7 @@ class Match(
             return
         }
 
-        //End of match check
+        //Check if match is finished
         if (winnerScore.numberOfSetsWon() == winningSets) {
             matchFinished = true
         } else {
@@ -125,6 +124,13 @@ class Match(
         else if (player2Score.player.id == player.id) player2Score
         else throw Exception("Player not found in this match") //NullPointerException ?
 
+    /**
+     * This function search the [PlayerScore] of the opponent of a player in this match and throw
+     * an exception if the opponent is not found.
+     *
+     * @param player
+     * @return the [PlayerScore] of the opponent
+     */
     @Throws(Exception::class)
     private fun findOpponentOf(player: Player): PlayerScore =
         if (player1Score.player.id != player.id) player1Score
