@@ -12,8 +12,11 @@ class Match(
 ) {
     private val player1Score: PlayerScore = PlayerScore(player1)
     private val player2Score: PlayerScore = PlayerScore(player2)
-    private var matchFinished = false // TODO : refactor match ended
+    private var matchFinished = false // TODO : refactor matchFinished
 
+    init {
+        if (player1.equals(player2)) throw Exception("Winner and loser players should not be the same.")
+    }
 
     /**
      * This function scores a point for the winner
@@ -22,12 +25,10 @@ class Match(
      * @param loser player that just lose the point
      */
     @Throws(Exception::class)
-    fun playerScoring(winner: Player, loser: Player) { // TODO : remove loser ? we can have it by picking the player which the id doesn't match
-        if (winner.equals(loser)) throw Exception("Winner and loser players should not be the same.")
+    fun playerScoring(winner: Player) {
         //TODO :  => Throw error when matchFinished ?
-
         val winnerScore = findPlayerScoreOf(winner)
-        val loserScore = findPlayerScoreOf(loser)
+        val loserScore = findOpponentOf(winner)
 
         if (winnerScore.getCurrentGame() is TieBreak) {
             tieBreakGameScoreHandler(winnerScore, loserScore)
@@ -123,5 +124,11 @@ class Match(
         if (player1Score.player.id == player.id) player1Score
         else if (player2Score.player.id == player.id) player2Score
         else throw Exception("Player not found in this match") //NullPointerException ?
+
+    @Throws(Exception::class)
+    private fun findOpponentOf(player: Player): PlayerScore =
+        if (player1Score.player.id != player.id) player1Score
+        else if (player2Score.player.id != player.id) player2Score
+        else throw Exception("Unexpected exception : Opponent not found") //NullPointerException ?
 
 }

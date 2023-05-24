@@ -12,11 +12,9 @@ class MatchTest {
     @Test
     fun player1EqualsPlayer2ShouldThrowError() {
         val player1 = Player(1, "John Smith")
-        val player2 = Player(2, "John Cena")
-        val match = Match(player1, player2)
 
         assertThrows(Exception::class.java) {
-            match.playerScoring(player1, player1)
+            Match(player1, player1)
         }
     }
 
@@ -36,7 +34,7 @@ class MatchTest {
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
 
-        match.playerScoring(winner = player1, loser = player2)
+        match.playerScoring(winner = player1)
 
         assertEquals(15, match.getPlayer1Score().getPoints())
     }
@@ -47,7 +45,7 @@ class MatchTest {
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
 
-        match.playerScoring(winner = player1, loser = player2)
+        match.playerScoring(winner = player1)
 
         assertEquals(0, match.getPlayer2Score().getPoints())
     }
@@ -58,9 +56,9 @@ class MatchTest {
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
 
-        match.playerScoring(winner = player1, loser = player2)
-        match.playerScoring(winner = player1, loser = player2)
-        match.playerScoring(winner = player1, loser = player2)
+        match.playerScoring(winner = player1)
+        match.playerScoring(winner = player1)
+        match.playerScoring(winner = player1)
 
         assertEquals(40, match.getPlayer1Score().getPoints())
     }
@@ -72,7 +70,7 @@ class MatchTest {
         val match = Match(player1, player2)
 
         for (i in 0 until 48) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player1)
         }
 
         assertEquals(2, match.getPlayer1Score().numberOfSetsWon())
@@ -94,7 +92,7 @@ class MatchTest {
         val match = Match(player1, player2)
 
         for (i in 0 until 48) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player1)
         }
 
         assertEquals(true, match.isMatchFinished())
@@ -108,27 +106,27 @@ class MatchTest {
 
         //First set
         for (i in 0 until 24) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player1)
         }
 
         //Second set 6 - 6
         for (i in 0 until 20) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player1)
         }
         for (i in 0 until 20) {
-            match.playerScoring(winner = player2, loser = player1)
+            match.playerScoring(winner = player2)
         }
         for (i in 0 until 4) {
-            match.playerScoring(winner = player2, loser = player1)
+            match.playerScoring(winner = player2)
         }
         for (i in 0 until 4) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player1)
         }
 
 
         //TieBreak
         for (i in 0 until 7) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player1)
         }
 
         assertEquals(true, match.isMatchFinished())
@@ -142,32 +140,32 @@ class MatchTest {
 
         //First set
         for (i in 0 until 24) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player1)
         }
 
         //Second set 6 - 6
         for (i in 0 until 20) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player1)
         }
         for (i in 0 until 20) {
-            match.playerScoring(winner = player2, loser = player1)
+            match.playerScoring(winner = player2)
         }
         for (i in 0 until 4) {
-            match.playerScoring(winner = player2, loser = player1)
+            match.playerScoring(winner = player2)
         }
         for (i in 0 until 4) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player1)
         }
 
 
         //TieBreak
         for (i in 0 until 7) {
-            match.playerScoring(winner = player1, loser = player2)
-            match.playerScoring(winner = player2, loser = player1)
+            match.playerScoring(winner = player1)
+            match.playerScoring(winner = player2)
         }
 
-        match.playerScoring(winner = player1, loser = player2)
-        match.playerScoring(winner = player1, loser = player2)
+        match.playerScoring(winner = player1)
+        match.playerScoring(winner = player1)
 
         assertEquals(true, match.isMatchFinished())
     }
@@ -180,31 +178,31 @@ class MatchTest {
 
         //First set
         for (i in 0 until 24) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player1)
         }
 
         //Second set 6 - 6
         for (i in 0 until 20) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player1)
         }
         for (i in 0 until 20) {
-            match.playerScoring(winner = player2, loser = player1)
+            match.playerScoring(winner = player2)
         }
         for (i in 0 until 4) {
-            match.playerScoring(winner = player2, loser = player1)
+            match.playerScoring(winner = player2)
         }
         for (i in 0 until 4) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player1)
         }
 
 
         //TieBreak
         for (i in 0 until 7) {
-            match.playerScoring(winner = player1, loser = player2)
-            match.playerScoring(winner = player2, loser = player1)
+            match.playerScoring(winner = player1)
+            match.playerScoring(winner = player2)
         }
 
-        match.playerScoring(winner = player1, loser = player2)
+        match.playerScoring(winner = player1)
 
         assertEquals(false, match.isMatchFinished())
     }
@@ -217,21 +215,21 @@ class MatchTest {
 
         //First set
         for (i in 0 until 24) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player1)
         }
 
         //Second set 6 - 6
         for (i in 0 until 20) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player1)
         }
         for (i in 0 until 20) {
-            match.playerScoring(winner = player2, loser = player1)
+            match.playerScoring(winner = player2)
         }
         for (i in 0 until 4) {
-            match.playerScoring(winner = player2, loser = player1)
+            match.playerScoring(winner = player2)
         }
         for (i in 0 until 4) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player1)
         }
 
         assertEquals(false, match.isMatchFinished())
@@ -244,26 +242,26 @@ class MatchTest {
 
         //First set
         for (i in 0 until 24) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player1)
         }
 
         //Second set 6 - 6
         for (i in 0 until 20) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player1)
         }
         for (i in 0 until 20) {
-            match.playerScoring(winner = player2, loser = player1)
+            match.playerScoring(winner = player2)
         }
         for (i in 0 until 4) {
-            match.playerScoring(winner = player2, loser = player1)
+            match.playerScoring(winner = player2)
         }
         for (i in 0 until 4) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player1)
         }
 
         //TieBreak
         for (i in 0 until 7) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player1)
         }
 
         assertEquals(listOf(6,7), match.getPlayer1Score().getSets().map { it.gameScore })
@@ -276,7 +274,7 @@ class MatchTest {
         val match = Match(player1, player2, 3)
 
         for (i in 0 until 48) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player1)
         }
 
         assertEquals(false, match.isMatchFinished())
@@ -289,7 +287,7 @@ class MatchTest {
         val match = Match(player1, player2, 3)
 
         for (i in 0 until 72) {
-            match.playerScoring(winner = player1, loser = player2)
+            match.playerScoring(winner = player1)
         }
 
         assertEquals(true, match.isMatchFinished())
@@ -302,14 +300,14 @@ class MatchTest {
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
 
-        match.playerScoring(winner = player1, loser = player2)
-        match.playerScoring(winner = player1, loser = player2)
-        match.playerScoring(winner = player1, loser = player2)
-        match.playerScoring(winner = player1, loser = player2)
-        match.playerScoring(winner = player1, loser = player2)
-        match.playerScoring(winner = player1, loser = player2)
-        match.playerScoring(winner = player1, loser = player2)
-        match.playerScoring(winner = player1, loser = player2)
+        match.playerScoring(winner = player1)
+        match.playerScoring(winner = player1)
+        match.playerScoring(winner = player1)
+        match.playerScoring(winner = player1)
+        match.playerScoring(winner = player1)
+        match.playerScoring(winner = player1)
+        match.playerScoring(winner = player1)
+        match.playerScoring(winner = player1)
 
         assertEquals(2, match.getPlayer1Score().getCurrentSet().gameScore)
     }

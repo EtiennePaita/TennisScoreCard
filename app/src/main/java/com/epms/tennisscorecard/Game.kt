@@ -20,10 +20,9 @@ class Game : GameScore {
 
     override fun winPoint() {
         when (points) {
-            0 -> { points = 15 }
-            15 -> { points = 30 }
-            30 -> { points = 40 }
-            40 -> { }
+            0 -> points = 15
+            15 -> points = 30
+            30 -> points = 40
         }
     }
 
