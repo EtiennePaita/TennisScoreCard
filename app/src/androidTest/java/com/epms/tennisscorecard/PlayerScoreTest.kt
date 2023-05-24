@@ -7,93 +7,93 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 internal class PlayerScoreTest {
+
     @Test
-    fun win1PointShouldScore15() {
-        val playerScore = PlayerScore()
+    fun playerScoreShouldBe15() {
+        val player = Player(1, "John Smith")
+        val playerScore = PlayerScore(player)
+
         playerScore.winPoint()
-        assertEquals(15, playerScore.getPointsScore())
+
+        assertEquals(15, playerScore.getPoints())
     }
 
     @Test
-    fun win2PointsShouldScore30() {
-        val playerScore = PlayerScore()
+    fun playerScoreShouldBe40() {
+        val player = Player(1, "John Smith")
+        val playerScore = PlayerScore(player)
+
         playerScore.winPoint()
         playerScore.winPoint()
-        assertEquals(30, playerScore.getPointsScore())
+        playerScore.winPoint()
+
+        assertEquals(40, playerScore.getPoints())
     }
 
     @Test
-    fun win3PointsShouldScore40() {
-        val playerScore = PlayerScore()
-        playerScore.winPoint()
-        playerScore.winPoint()
-        playerScore.winPoint()
-        assertEquals(40, playerScore.getPointsScore())
+    fun playerSetWonScoreShouldBe2() {
+        val player = Player(1, "John Smith")
+        val playerScore = PlayerScore(player)
+
+        playerScore.winSet()
+        playerScore.nextSet()
+        playerScore.winSet()
+
+        assertEquals(2, playerScore.numberOfSetsWon())
     }
 
     @Test
-    fun win4PointsShouldScore0() {
-        val playerScore = PlayerScore()
+    fun playerShouldHaveAdvantage() {
+        val player = Player(1, "John Smith")
+        val playerScore = PlayerScore(player)
+
         playerScore.winPoint()
         playerScore.winPoint()
         playerScore.winPoint()
-        playerScore.winPoint()
-        assertEquals(0, playerScore.getPointsScore())
+        playerScore.giveAdvantage()
+
+        assertEquals(true, playerScore.hasAdvantage())
     }
 
     @Test
-    fun win4PointsShouldScore1Game() {
-        val playerScore = PlayerScore()
+    fun playerShouldNotHaveAdvantage() {
+        val player = Player(1, "John Smith")
+        val playerScore = PlayerScore(player)
+
+        playerScore.winPoint()
+        playerScore.winPoint()
+        playerScore.winPoint()
+        playerScore.giveAdvantage()
+        playerScore.removeAdvantage()
+
+        assertEquals(false, playerScore.hasAdvantage())
+    }
+
+    @Test
+    fun playerGameScoreShouldBeATieBreak() {
+        val player = Player(1, "John Smith")
+        val playerScore = PlayerScore(player)
+
+        playerScore.winPoint()
+        playerScore.winPoint()
+        playerScore.winPoint()
+        playerScore.nextGame(true)
+
+        assertEquals(true, playerScore.getCurrentGame() is TieBreak)
+    }
+
+    @Test
+    fun playerTieBreakGameScorePointsShouldBe5() {
+        val player = Player(1, "John Smith")
+        val playerScore = PlayerScore(player)
+
+        playerScore.nextGame(true)
         playerScore.winPoint()
         playerScore.winPoint()
         playerScore.winPoint()
         playerScore.winPoint()
-        assertEquals(listOf(1,0), playerScore.getGameScore())
-    }
+        playerScore.winPoint()
 
-    @Test
-    fun win24PointsShouldScore6Game() {
-        val playerScore = PlayerScore()
-        for (i in 0 until 24) {
-            playerScore.winPoint()
-        }
-        assertEquals(listOf(6,0), playerScore.getGameScore())
-    }
-
-    @Test
-    fun win27PointsShouldScore6GameAnd40Points() {
-        val playerScore = PlayerScore()
-        for (i in 0 until 27) {
-            playerScore.winPoint()
-        }
-        assertEquals(listOf(6,0), playerScore.getGameScore())
-        assertEquals(40, playerScore.getPointsScore())
-    }
-
-    @Test
-    fun win28PointsShouldScore7Game() {
-        val playerScore = PlayerScore()
-        for (i in 0 until 28) {
-            playerScore.winPoint()
-        }
-        assertEquals(listOf(6,1), playerScore.getGameScore())
-    }
-
-    @Test
-    fun win48PointsShouldScore12Game() {
-        val playerScore = PlayerScore()
-        for (i in 0 until 48) {
-            playerScore.winPoint()
-        }
-        assertEquals(listOf(6,6), playerScore.getGameScore())
-    }
-
-    @Test
-    fun win52PointsShouldScore13Game() {
-        val playerScore = PlayerScore()
-        for (i in 0 until 52) {
-            playerScore.winPoint()
-        }
-        assertEquals(listOf(6,7), playerScore.getGameScore())
+        assertEquals(5, playerScore.getPoints())
     }
 }

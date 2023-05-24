@@ -1,52 +1,59 @@
 package com.epms.tennisscorecard
 
-class PlayerScore() {
-    private var setCursor = 0
-    private var pointsScore = 0
-    private val gameScore = mutableListOf(0,0)
+class PlayerScore(
+    val player: Player
+) {
+    private var currentGame: GameScore = Game()
+    private val sets = mutableListOf(Set())
     private var hasAdvantage = false
 
     fun winPoint() {
-        when (pointsScore) {
-            0 -> { pointsScore = 15 }
-            15 -> { pointsScore = 30 }
-            30 -> { pointsScore = 40 }
-            40 -> {
-                pointsScore = 0
-                winGame()
-            }
-        }
-    }
-
-    fun losePoint() {
-        when (pointsScore) {
-            15 -> { pointsScore = 0 }
-            30 -> { pointsScore = 15 }
-            40 -> { pointsScore = 30 }
-        }
-    }
-
-    fun resetPoints() {
-        pointsScore = 0
+        currentGame.winPoint()
     }
 
     fun giveAdvantage() { hasAdvantage = true }
 
     fun removeAdvantage() { hasAdvantage = false }
 
+    // TODO : maybe throw an exception if sets.last() < 6 ?
+    fun winSet() {
+        sets.last().isWon = true
+    }
+
+    fun loseSet() {
+        sets.last().isWon = false
+    }
+
     fun nextSet() {
-        if (setCursor < (gameScore.size - 1)) setCursor += 1
-        pointsScore = 0
+        sets.add(Set())
+        removeAdvantage()
+        nextGame()
     }
 
-    private fun winGame() {
-        gameScore[setCursor] += 1
-        // Move check in Match class ?
-        if (gameScore[setCursor] == 6 && setCursor < (gameScore.size - 1)) setCursor++
+    fun winGame() {
+        sets.last().gameScore += 1
+        removeAdvantage()
     }
 
-    fun getPointsScore() = pointsScore
+    fun nextGame(isTieBreak: Boolean = false) {
+        currentGame = if (isTieBreak) TieBreak() else Game()
+        removeAdvantage()
+    }
 
-    fun getGameScore() = gameScore
+
+    fun getCurrentGame() = currentGame
+
+    fun getPoints(): Int = currentGame.getPoints()
+
+    fun getCurrentSet() = sets.last()
+
+    fun getSets() = sets
+
+    fun numberOfSetsWon(): Int {
+        var counter = 0
+        sets.forEach { if (it.isWon == true) counter++ }
+        return counter
+    }
+
     fun hasAdvantage() = hasAdvantage
 }
