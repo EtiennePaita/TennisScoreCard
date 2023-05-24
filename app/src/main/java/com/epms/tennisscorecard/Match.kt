@@ -1,119 +1,140 @@
 package com.epms.tennisscorecard
 
-class Match (
-    private var player1: Player,
-    private var player2: Player,
+
+//TODO : improvements :
+//              - add an observer for the match state
+//              - Custom exceptions
+
+class Match(
+    player1: Player,
+    player2: Player,
+    private val winningSets: Int = 2 //TODO :  => Throw error if > 3 or < 2 ?
 ) {
-    fun playerScoring(winner: Player, loser: Player) {
-        if (winner !== loser) {
-            if (winner.getPoints() <= 40) {
-                winner.winPoint();
-                if (winner.getPoints() == 40 && loser.getPoints() <= 15) {
-                    winner.winGame()
-                    winner.nextGame()
-                    loser.nextGame()
-                } else if (winner.getPoints() == 40) {
-                    winner.giveAdvantage()
-                }
-            } else if (winner.getPoints() == 40 && loser.getPoints() == 40) {
-                if (winner.hasAdvantage()) {
-                    winner.winPoint()
-                    winner.removeAdvantage()
-                } else if (loser.hasAdvantage()) {
-                    loser.removeAdvantage()
-                } else {
-                    winner.giveAdvantage()
-                    println(winner.hasAdvantage())
-                }
-            } else if ((winner.getPoints() == 40 && loser.getPoints() == 30)
-                || (winner.getPoints() >= 40 && (winner.getPoints() - loser.getPoints() < 2))
-            ) {
-                winner.winPoint()
-                winner.winGame()
-                winner.nextGame()
-                loser.nextGame()
+    private val player1Score: PlayerScore = PlayerScore(player1)
+    private val player2Score: PlayerScore = PlayerScore(player2)
+    private var matchFinished = false // TODO : refactor matchFinished
+
+    init {
+        if (player1.equals(player2)) throw Exception("Winner and loser players should not be the same.")
+    }
+
+    /**
+     * This function scores a point for the winner
+     *
+     * @param winner player that just win the point
+     */
+    @Throws(Exception::class)
+    fun playerScoring(winner: Player) {
+        //TODO :  => Throw error when matchFinished ?
+        val winnerScore = findPlayerScoreOf(winner)
+        val loserScore = findOpponentOf(winner)
+
+        if (winnerScore.getCurrentGame() is TieBreak) {
+            tieBreakGameScoreHandler(winnerScore, loserScore)
+        } else {
+            gameScoreHandler(winnerScore, loserScore)
+        }
+    }
+
+    /**
+     * This function handles the game score on a tieBreak. Win a point and check if the game is won.
+     *
+     * @param winnerScore player that just win the point
+     * @param loserScore player that just lose the point
+     */
+    private fun tieBreakGameScoreHandler(winnerScore: PlayerScore, loserScore: PlayerScore) {
+        winnerScore.winPoint()
+        if (winnerScore.getPoints() >= 7 && (winnerScore.getPoints() - loserScore.getPoints()) >= 2) {
+            winnerScore.winGame()
+            matchContinuationManager(winnerScore, loserScore)
+        }
+    }
+
+    /**
+     * This function handles the game score on a regular game. Win a point and check if the game is
+     * won.
+     *
+     * @param winnerScore player that just win the point
+     * @param loserScore player that just lose the point
+     */
+    private fun gameScoreHandler(winnerScore: PlayerScore, loserScore: PlayerScore) {
+        if (winnerScore.getPoints() == 40 && loserScore.getPoints() == 40) { // handle advantages
+            if (winnerScore.hasAdvantage()) {
+                winnerScore.winGame()
+                matchContinuationManager(winnerScore, loserScore)
+            } else if (loserScore.hasAdvantage()) {
+                loserScore.removeAdvantage()
             } else {
-                winner.winPoint()
+                winnerScore.giveAdvantage()
             }
-        }
-    }
-
-    fun getPlayer1PointsScore() = player1.getPoints()
-
-    fun getPlayer2PointsScore() = player2.getPoints()
-
-    fun stateSet(team1: Player, team2: Player):Boolean {
-        if (team1.getGames() >= 6 || team2.getGames() >= 6) {
-            if ((team1.getGames() - team2.getGames()) >= 2) {
-                return if (team1.getSetCursor() < (team1.getSets().size - 1)) {
-                    team1.winSet()
-                    team1.nextSet()
-                    team2.nextSet()
-                    false
-                } else {
-                    true
-                }
-            } else if ((team2.getGames() - team1.getGames()) >= 2) {
-                return if (team2.getSetCursor() < (team2.getSets().size - 1)) {
-                    team2.winSet()
-                    team2.nextSet()
-                    team1.nextSet()
-                    false
-                } else {
-                    true
-                }
-                // Tie-break case
-            } else if (team1.getGames() == 7) {
-                return if (team1.getSetCursor() < (team1.getSets().size - 1)) {
-                    team1.winSet()
-                    team1.nextSet()
-                    team2.nextSet()
-                    false
-                } else {
-                    true
-                }
-                // Tie-break case
-            } else if (team2.getGames() == 7) {
-                return if (team2.getSetCursor() < (team2.getSets().size - 1)) {
-                    team2.winSet()
-                    team2.nextSet()
-                    team1.nextSet()
-                    false
-                } else {
-                    true
-                }
-            } else {
-                return false
-            }
-            //gameScore[setCursor] += 1
+        } else if (winnerScore.getPoints() == 40 && loserScore.getPoints() < 40) { // win this game
+            winnerScore.winGame()
+            matchContinuationManager(winnerScore, loserScore)
         } else {
-            return false
+            winnerScore.winPoint()
         }
     }
 
-    fun matchEnded(team1: Player, team2: Player): Boolean {
-        val noMoreSet = this.stateSet(team1 = team1, team2 = team2)
-        // Someone has won two sets
-        return if (team1.getSets().sum() - team2.getSets().sum() >= 2 && noMoreSet) {
-            true
-        } else if (team2.getSets().sum() - team1.getSets().sum() >= 2 && noMoreSet) {
-            true
-        } else if (team1.getSetCursor() == (team1.getSets().size - 1) || team1.getSets().sum() - team2.getSets().sum() < 2 &&noMoreSet) {
-            team1.addSet()
-            team2.addSet()
-            false
+    /**
+     * This function manage the match continuation. It checks the victory of the match, the
+     * victory of the set and manage the continuation of the match (TieBreak, next set, etc.)
+     *
+     */
+    private fun matchContinuationManager(winnerScore: PlayerScore, loserScore: PlayerScore) {
+
+        if (winnerScore.getCurrentSet().gameScore == 7 || (winnerScore.getCurrentSet().gameScore == 6 && loserScore.getCurrentSet().gameScore < 5)) { // win the set
+            winnerScore.winSet()
+            loserScore.loseSet()
         } else {
-            false
+            val isTieBreak = winnerScore.getCurrentSet().gameScore == 6 && loserScore.getCurrentSet().gameScore == 6
+            winnerScore.nextGame(isTieBreak = isTieBreak)
+            loserScore.nextGame(isTieBreak = isTieBreak)
+            return
+        }
+
+        //Check if match is finished
+        if (winnerScore.numberOfSetsWon() == winningSets) {
+            matchFinished = true
+        } else {
+            winnerScore.nextSet()
+            loserScore.nextSet()
         }
     }
 
-    fun whoWin(team1: Player, team2: Player): Player? {
-        return if (team1.getSets().sum() - team2.getSets().sum() >= 2) {
-            team1
-        } else if (team2.getSets().sum() - team1.getSets().sum() >= 2) {
-            team2
-        } else {
-            null
-        }
-    }
+    //TODO : create interface to get player scores on tests ? IDK
+
+    //Only for testing
+    fun getPlayer1Score() = player1Score
+
+    //Only for testing
+    fun getPlayer2Score() = player2Score
+
+    fun isMatchFinished() = matchFinished
+
+    /**
+     * This function search the [PlayerScore] of a player in the match and throw an exception if
+     * the player is not found.
+     *
+     * @param player
+     * @return the [PlayerScore] of the same player
+     */
+    @Throws(Exception::class)
+    private fun findPlayerScoreOf(player: Player): PlayerScore =
+        if (player1Score.player.id == player.id) player1Score
+        else if (player2Score.player.id == player.id) player2Score
+        else throw Exception("Player not found in this match") //NullPointerException ?
+
+    /**
+     * This function search the [PlayerScore] of the opponent of a player in this match and throw
+     * an exception if the opponent is not found.
+     *
+     * @param player
+     * @return the [PlayerScore] of the opponent
+     */
+    @Throws(Exception::class)
+    private fun findOpponentOf(player: Player): PlayerScore =
+        if (player1Score.player.id != player.id) player1Score
+        else if (player2Score.player.id != player.id) player2Score
+        else throw Exception("Unexpected exception : Opponent not found") //NullPointerException ?
+
 }
