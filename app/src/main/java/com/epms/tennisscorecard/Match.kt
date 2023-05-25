@@ -1,21 +1,16 @@
 package com.epms.tennisscorecard
 
-
-//TODO : improvements :
-//              - add an observer for the match state
-//              - Custom exceptions
-
 class Match(
     player1: Player,
     player2: Player,
-    private val winningSets: Int = 2 //TODO :  => Throw error if > 3 or < 2 ?
+    private val winningSets: Int = 2
 ) {
     private val player1Score: PlayerScore = PlayerScore(player1)
     private val player2Score: PlayerScore = PlayerScore(player2)
-    private var matchFinished = false // TODO : refactor matchFinished
+    private var matchFinished = false
 
     init {
-        if (player1.equals(player2)) throw Exception("Winner and loser players should not be the same.")
+        if (player1.equals(player2)) throw Exception("The two players in the match must not be the same.")
     }
 
     /**
@@ -25,14 +20,18 @@ class Match(
      */
     @Throws(Exception::class)
     fun playerScoring(winner: Player) {
-        //TODO :  => Throw error when matchFinished ?
+        if (matchFinished) return
+
         val winnerScore = findPlayerScoreOf(winner)
         val loserScore = findOpponentOf(winner)
 
-        if (winnerScore.getCurrentGame() is TieBreak) {
-            tieBreakGameScoreHandler(winnerScore, loserScore)
-        } else {
-            gameScoreHandler(winnerScore, loserScore)
+        when (winnerScore.getCurrentGame()) {
+            is TieBreak -> {
+                tieBreakGameScoreHandler(winnerScore, loserScore)
+            }
+            else -> {
+                gameScoreHandler(winnerScore, loserScore)
+            }
         }
     }
 
@@ -101,8 +100,6 @@ class Match(
         }
     }
 
-    //TODO : create interface to get player scores on tests ? IDK
-
     //Only for testing
     fun getPlayer1Score() = player1Score
 
@@ -122,7 +119,7 @@ class Match(
     private fun findPlayerScoreOf(player: Player): PlayerScore =
         if (player1Score.player.id == player.id) player1Score
         else if (player2Score.player.id == player.id) player2Score
-        else throw Exception("Player not found in this match") //NullPointerException ?
+        else throw Exception("Player not found in this match")
 
     /**
      * This function search the [PlayerScore] of the opponent of a player in this match and throw
@@ -135,6 +132,6 @@ class Match(
     private fun findOpponentOf(player: Player): PlayerScore =
         if (player1Score.player.id != player.id) player1Score
         else if (player2Score.player.id != player.id) player2Score
-        else throw Exception("Unexpected exception : Opponent not found") //NullPointerException ?
+        else throw Exception("Unexpected exception : Opponent not found")
 
 }

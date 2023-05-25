@@ -1,6 +1,5 @@
 package com.epms.tennisscorecard
 
-
 class PlayerScore(
     val player: Player
 ) {
@@ -16,7 +15,6 @@ class PlayerScore(
 
     fun removeAdvantage() { hasAdvantage = false }
 
-    // TODO : maybe throw an exception if sets.last() < 6 ?
     fun winSet() {
         sets.last().isWon = true
     }
@@ -57,5 +55,4 @@ class PlayerScore(
     }
 
     fun hasAdvantage() = hasAdvantage
-
 }

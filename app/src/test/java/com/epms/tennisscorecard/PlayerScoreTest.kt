@@ -1,16 +1,12 @@
 package com.epms.tennisscorecard
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.junit.runner.RunWith
 
-
-@RunWith(AndroidJUnit4::class)
 internal class PlayerScoreTest {
 
     @Test
-    fun playerScoreShouldBe15() {
+    fun `player score should be 15`() {
         val player = Player(1, "John Smith")
         val playerScore = PlayerScore(player)
 
@@ -20,7 +16,7 @@ internal class PlayerScoreTest {
     }
 
     @Test
-    fun playerScoreShouldBe40() {
+    fun `player score should be 40`() {
         val player = Player(1, "John Smith")
         val playerScore = PlayerScore(player)
 
@@ -32,7 +28,7 @@ internal class PlayerScoreTest {
     }
 
     @Test
-    fun playerSetWonScoreShouldBe2() {
+    fun `player set WonScore should be 2`() {
         val player = Player(1, "John Smith")
         val playerScore = PlayerScore(player)
 
@@ -44,7 +40,7 @@ internal class PlayerScoreTest {
     }
 
     @Test
-    fun playerShouldHaveAdvantage() {
+    fun `player should have advantage`() {
         val player = Player(1, "John Smith")
         val playerScore = PlayerScore(player)
 
@@ -57,7 +53,7 @@ internal class PlayerScoreTest {
     }
 
     @Test
-    fun playerShouldNotHaveAdvantage() {
+    fun `player should not have advantage`() {
         val player = Player(1, "John Smith")
         val playerScore = PlayerScore(player)
 
@@ -71,7 +67,7 @@ internal class PlayerScoreTest {
     }
 
     @Test
-    fun playerGameScoreShouldBeATieBreak() {
+    fun `player GameScore should be a TieBreak`() {
         val player = Player(1, "John Smith")
         val playerScore = PlayerScore(player)
 
@@ -84,7 +80,7 @@ internal class PlayerScoreTest {
     }
 
     @Test
-    fun playerTieBreakGameScorePointsShouldBe5() {
+    fun `player TieBreak GameScorePoints should be 5`() {
         val player = Player(1, "John Smith")
         val playerScore = PlayerScore(player)
 
