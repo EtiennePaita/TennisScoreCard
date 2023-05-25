@@ -7,7 +7,7 @@ import org.junit.Test
 class MatchTest {
 
     @Test
-    fun player1EqualsPlayer2ShouldThrowError() {
+    fun `creating match is the same player should throw error`() {
         val player1 = Player(1, "John Smith")
 
         assertThrows(Exception::class.java) {
@@ -16,7 +16,7 @@ class MatchTest {
     }
 
     @Test
-    fun player1And2GameScorePointsShouldBe0() {
+    fun `player 1 and 2 gameScore points should be 0`() {
         val player1 = Player(1, "John Smith")
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
@@ -26,7 +26,7 @@ class MatchTest {
     }
 
     @Test
-    fun player1GameScorePointsShouldBe15() {
+    fun `player1 GameScore points should be 15`() {
         val player1 = Player(1, "John Smith")
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
@@ -37,7 +37,7 @@ class MatchTest {
     }
 
     @Test
-    fun player2GameScorePointsShouldBe0() {
+    fun `player 2 GameScore points should be 0`() {
         val player1 = Player(1, "John Smith")
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
@@ -48,7 +48,7 @@ class MatchTest {
     }
 
     @Test
-    fun player1GameScorePointsShouldBe40() {
+    fun `player1 GameScore points should be 40`() {
         val player1 = Player(1, "John Smith")
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
@@ -61,7 +61,7 @@ class MatchTest {
     }
 
     @Test
-    fun player1SetsWonScoreShouldBe2() {
+    fun `player 1 setsWon score should be 2`() {
         val player1 = Player(1, "John Smith")
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
@@ -74,7 +74,7 @@ class MatchTest {
     }
 
     @Test
-    fun matchShouldNotBeFinished() {
+    fun `match should not be finished`() {
         val player1 = Player(1, "John Smith")
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
@@ -83,7 +83,7 @@ class MatchTest {
     }
 
     @Test
-    fun matchShouldBeFinished() {
+    fun `match should be finished`() {
         val player1 = Player(1, "John Smith")
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
@@ -96,7 +96,7 @@ class MatchTest {
     }
 
     @Test
-    fun matchWithTieBreakShouldBeFinished() {
+    fun `match with TieBreak should be finished`() {
         val player1 = Player(1, "John Smith")
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
@@ -130,7 +130,7 @@ class MatchTest {
     }
 
     @Test
-    fun matchWithLongTieBreakShouldBeFinished() {
+    fun `match with long TieBreak should be finished`() {
         val player1 = Player(1, "John Smith")
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
@@ -168,7 +168,7 @@ class MatchTest {
     }
 
     @Test
-    fun matchWithLongTieBreakShouldNotBeFinished() {
+    fun `match with long TieBreak should not be finished`() {
         val player1 = Player(1, "John Smith")
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
@@ -205,7 +205,7 @@ class MatchTest {
     }
 
     @Test
-    fun matchWithTieBreakShouldNotBeFinished() {
+    fun `match with TieBreak should not be finished`() {
         val player1 = Player(1, "John Smith")
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
@@ -232,7 +232,7 @@ class MatchTest {
         assertEquals(false, match.isMatchFinished())
     }
     @Test
-    fun matchWithTieBreakPlayer1EndScoreShouldBe6_7() {
+    fun `match with TieBreak player1 EndScore should be 6_7`() {
         val player1 = Player(1, "John Smith")
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)
@@ -265,7 +265,7 @@ class MatchTest {
     }
 
     @Test
-    fun matchOn3SetsShouldNotBeFinished() {
+    fun `match on 3 sets should not be finished`() {
         val player1 = Player(1, "John Smith")
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2, 3)
@@ -278,7 +278,7 @@ class MatchTest {
     }
 
     @Test
-    fun matchOn3SetsShouldBeFinished() {
+    fun `match on 3 sets should be finished`() {
         val player1 = Player(1, "John Smith")
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2, 3)
@@ -292,7 +292,7 @@ class MatchTest {
 
 
     @Test
-    fun player1SetGamesWonShouldBe2() {
+    fun `player1 set games won should be 2`() {
         val player1 = Player(1, "John Smith")
         val player2 = Player(2, "John Cena")
         val match = Match(player1, player2)

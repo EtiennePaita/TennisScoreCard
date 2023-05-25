@@ -25,10 +25,13 @@ class Match(
         val winnerScore = findPlayerScoreOf(winner)
         val loserScore = findOpponentOf(winner)
 
-        if (winnerScore.getCurrentGame() is TieBreak) {
-            tieBreakGameScoreHandler(winnerScore, loserScore)
-        } else {
-            gameScoreHandler(winnerScore, loserScore)
+        when (winnerScore.getCurrentGame()) {
+            is TieBreak -> {
+                tieBreakGameScoreHandler(winnerScore, loserScore)
+            }
+            else -> {
+                gameScoreHandler(winnerScore, loserScore)
+            }
         }
     }
 
