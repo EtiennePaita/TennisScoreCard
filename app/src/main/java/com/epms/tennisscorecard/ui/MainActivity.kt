@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.epms.tennisscorecard.Match
 import com.epms.tennisscorecard.MatchState
 import com.epms.tennisscorecard.Player
+import com.epms.tennisscorecard.PlayerScore
 import com.epms.tennisscorecard.R
 import com.epms.tennisscorecard.databinding.ActivityMainBinding
 
@@ -44,8 +45,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateUIScore(matchState: MatchState) {
         //Get board score
-        binding.player1Score.text = "${matchState.player1State.getSets()} // ${matchState.player1State.getPoints()}"
-        binding.player2Score.text = "${matchState.player2State.getSets()} // ${matchState.player2State.getPoints()}"
+        binding.player1Score.text = getScoreBoardOf(matchState.player1State)
+        binding.player2Score.text = getScoreBoardOf(matchState.player2State)
     }
 
     private fun setUIListeners() {
@@ -55,5 +56,14 @@ class MainActivity : AppCompatActivity() {
         binding.player2ScoreButton.setOnClickListener {
             match.playerScoring(player2)
         }
+    }
+
+    private fun getScoreBoardOf(playerScore: PlayerScore): String {
+        var scoreBoard = "${playerScore.player.name} : "
+        playerScore.getSets().forEach {
+            scoreBoard += "${it.gameScore} | "
+        }
+        scoreBoard += playerScore.getPoints()
+        return scoreBoard
     }
 }
