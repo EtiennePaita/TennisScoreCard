@@ -1,5 +1,8 @@
 package com.epms.tennisscorecard
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+
 class Match(
     player1: Player,
     player2: Player,
@@ -8,6 +11,9 @@ class Match(
     private val player1Score: PlayerScore = PlayerScore(player1)
     private val player2Score: PlayerScore = PlayerScore(player2)
     private var matchFinished = false
+    private var winner: Player? = null
+    private val _matchState: MutableLiveData<MatchState> = MutableLiveData(MatchState.InProgress(player1Score,player2Score))
+    val matchState: LiveData<MatchState> = _matchState
 
     init {
         if (player1.equals(player2)) throw Exception("The two players in the match must not be the same.")
@@ -33,6 +39,7 @@ class Match(
                 gameScoreHandler(winnerScore, loserScore)
             }
         }
+        updateMatchState()
     }
 
     /**
@@ -94,9 +101,25 @@ class Match(
         //Check if match is finished
         if (winnerScore.numberOfSetsWon() == winningSets) {
             matchFinished = true
+            winner = winnerScore.player
         } else {
             winnerScore.nextSet()
             loserScore.nextSet()
+        }
+    }
+
+    private fun updateMatchState() {
+        winner?.let { theWinner ->
+            _matchState.value = MatchState.IsOver(
+                player1Score,
+                player2Score,
+                theWinner
+            )
+        } ?: run {
+            _matchState.value = MatchState.InProgress(
+                player1Score,
+                player2Score
+            )
         }
     }
 
