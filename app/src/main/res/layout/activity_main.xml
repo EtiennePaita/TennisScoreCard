@@ -61,7 +61,8 @@
         android:id="@+id/go_to_players_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Look at my players"
+        android:text="@string/my_play_companions"
+        android:textAllCaps="false"
         android:layout_gravity="center"/>
 
     <androidx.appcompat.widget.AppCompatEditText

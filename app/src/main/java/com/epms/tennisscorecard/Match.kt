@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 class Match(
     player1: Player,
     player2: Player,
-    private val winningSets: Int = 2
+    val winningSets: Int = 2
 ) {
     private val player1Score: PlayerScore = PlayerScore(player1)
     private val player2Score: PlayerScore = PlayerScore(player2)

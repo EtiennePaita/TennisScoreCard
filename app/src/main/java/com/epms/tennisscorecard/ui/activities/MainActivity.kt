@@ -10,6 +10,8 @@ import com.epms.tennisscorecard.Player
 import com.epms.tennisscorecard.PlayerScore
 import com.epms.tennisscorecard.R
 import com.epms.tennisscorecard.databinding.ActivityMainBinding
+import com.epms.tennisscorecard.models.MatchEntity
+import com.epms.tennisscorecard.models.MatchEntityFactory
 import com.epms.tennisscorecard.models.PlayerEntity
 import com.epms.tennisscorecard.viewModels.PlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var player1: Player
     private lateinit var player2: Player
     private val playerViewModel: PlayerViewModel by viewModels()
+    private var currentMatchEntityState: MatchEntity? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,19 +40,6 @@ class MainActivity : AppCompatActivity() {
         player1 = Player(1, "John Smith")
         player2 = Player(2, "Antoine De LaMarmotte")
         match = Match(player1, player2)
-        match.matchState.observe(this) {
-            when (it) {
-                is MatchState.InProgress -> {
-                    updateUIScore(it)
-                }
-                is MatchState.IsOver -> {
-                    updateUIScore(it)
-                    binding.player1ScoreButton.isEnabled = false
-                    binding.player2ScoreButton.isEnabled = false
-                    binding.winnerText.text = "Winner : ${it.winner.name}"
-                }
-            }
-        }
     }
 
     private fun updateUIScore(matchState: MatchState) {
@@ -79,6 +69,20 @@ class MainActivity : AppCompatActivity() {
     private fun setObservers() {
         playerViewModel.players.observe(this) {
             binding.playerCounterText.text = "${getString(R.string.players_registered)} : ${it?.size ?: 0}"
+        }
+        match.matchState.observe(this) {
+            currentMatchEntityState = MatchEntityFactory.createMatchEntity(it, match.winningSets)
+            when (it) {
+                is MatchState.InProgress -> {
+                    updateUIScore(it)
+                }
+                is MatchState.IsOver -> {
+                    updateUIScore(it)
+                    binding.player1ScoreButton.isEnabled = false
+                    binding.player2ScoreButton.isEnabled = false
+                    binding.winnerText.text = "Winner : ${it.winner.name}"
+                }
+            }
         }
     }
 

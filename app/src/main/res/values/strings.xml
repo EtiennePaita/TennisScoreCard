@@ -5,4 +5,5 @@
     <string name="players_registered">Players registered</string>
     <string name="player_name_hint">Player name</string>
     <string name="create_player_cta">Create a player</string>
+    <string name="my_play_companions">My play companions</string>
 </resources>
