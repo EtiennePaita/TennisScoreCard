@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TennisScoreCard</string>
+    <string name="welcome_text">Welcome to the best tennis score keeper app !</string>
 </resources>

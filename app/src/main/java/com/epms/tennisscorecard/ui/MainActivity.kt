@@ -8,7 +8,9 @@ import com.epms.tennisscorecard.Player
 import com.epms.tennisscorecard.PlayerScore
 import com.epms.tennisscorecard.R
 import com.epms.tennisscorecard.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var match: Match
