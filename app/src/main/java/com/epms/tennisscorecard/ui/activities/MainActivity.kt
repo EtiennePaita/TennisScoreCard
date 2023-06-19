@@ -1,13 +1,17 @@
-package com.epms.tennisscorecard.ui
+package com.epms.tennisscorecard.ui.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import com.epms.tennisscorecard.Match
 import com.epms.tennisscorecard.MatchState
 import com.epms.tennisscorecard.Player
 import com.epms.tennisscorecard.PlayerScore
 import com.epms.tennisscorecard.R
 import com.epms.tennisscorecard.databinding.ActivityMainBinding
+import com.epms.tennisscorecard.models.PlayerEntity
+import com.epms.tennisscorecard.viewModels.PlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -16,14 +20,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var match: Match
     private lateinit var player1: Player
     private lateinit var player2: Player
+    private val playerViewModel: PlayerViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        playerViewModel.getPlayers()
         setUpTestMatch()
         setUIListeners()
+        setObservers()
     }
 
     private fun setUpTestMatch() {
@@ -57,6 +64,21 @@ class MainActivity : AppCompatActivity() {
         }
         binding.player2ScoreButton.setOnClickListener {
             match.playerScoring(player2)
+        }
+        binding.createPlayerButton.setOnClickListener {
+            if (!binding.playerNameEditText.text.isNullOrBlank()) {
+                playerViewModel.insertPlayer(PlayerEntity(binding.playerNameEditText.text.toString()))
+                binding.playerNameEditText.text = null
+            }
+        }
+        binding.goToPlayersButton.setOnClickListener {
+            startActivity(Intent(this, PlayersActivity::class.java))
+        }
+    }
+
+    private fun setObservers() {
+        playerViewModel.players.observe(this) {
+            binding.playerCounterText.text = "${getString(R.string.players_registered)} : ${it?.size ?: 0}"
         }
     }
 

@@ -8,8 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.epms.tennisscorecard.models.PlayerEntity
 import com.epms.tennisscorecard.repositories.PlayerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,6 +24,7 @@ class PlayerViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 playerRepository.getPlayers()?.collect {
+                    Log.d("PlayerViewModel", "Players $it")
                     _players.value = it
                 }
             } catch (e: Exception) {
@@ -32,10 +34,14 @@ class PlayerViewModel @Inject constructor(
     }
 
     fun insertPlayer(player: PlayerEntity) {
-        try {
-            playerRepository.insertPlayer(player)
-        } catch (e: Exception) {
-            Log.e("PlayerViewModel", "Insert error : $e")
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                try {
+                    playerRepository.insertPlayer(player)
+                } catch (e: Exception) {
+                    Log.e("PlayerViewModel", "Insert error : $e")
+                }
+            }
         }
     }
 }

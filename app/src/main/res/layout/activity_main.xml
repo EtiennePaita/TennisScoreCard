@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:paddingStart="20dp"
     android:paddingEnd="20dp"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.activities.MainActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -34,14 +34,14 @@
         android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/player_1_score_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="1 Score" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/player_2_score_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -56,5 +56,34 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="25sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/go_to_players_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Look at my players"
+        android:layout_gravity="center"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/player_name_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="@string/player_name_hint"
+        android:layout_marginTop="20dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/create_player_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create_player_cta"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/player_counter_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Players registered : 0"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
