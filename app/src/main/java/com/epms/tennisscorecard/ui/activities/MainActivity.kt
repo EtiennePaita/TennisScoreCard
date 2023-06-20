@@ -5,15 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.epms.tennisscorecard.Match
-import com.epms.tennisscorecard.MatchState
 import com.epms.tennisscorecard.Player
-import com.epms.tennisscorecard.PlayerScore
 import com.epms.tennisscorecard.R
 import com.epms.tennisscorecard.databinding.ActivityMainBinding
 import com.epms.tennisscorecard.models.MatchEntity
-import com.epms.tennisscorecard.models.MatchEntityFactory
 import com.epms.tennisscorecard.models.PlayerEntity
-import com.epms.tennisscorecard.viewModels.PlayerViewModel
+import com.epms.tennisscorecard.models.toPlayer
+import com.epms.tennisscorecard.viewModels.MainViewModel
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,15 +21,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var match: Match
     private lateinit var player1: Player
     private lateinit var player2: Player
-    private val playerViewModel: PlayerViewModel by viewModels()
-    private var currentMatchEntityState: MatchEntity? = null
+    private var allPlayers: List<PlayerEntity>? = null
+    private var matchHistory: List<MatchEntity>? = null
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        playerViewModel.getPlayers()
+        mainViewModel.getPlayers()
+        mainViewModel.getAllMatches()
         setUpTestMatch()
         setUIListeners()
         setObservers()
@@ -42,56 +43,35 @@ class MainActivity : AppCompatActivity() {
         match = Match(player1, player2)
     }
 
-    private fun updateUIScore(matchState: MatchState) {
-        //Get board score
-        binding.player1Score.text = getScoreBoardOf(matchState.player1State)
-        binding.player2Score.text = getScoreBoardOf(matchState.player2State)
-    }
-
     private fun setUIListeners() {
-        binding.player1ScoreButton.setOnClickListener {
-            match.playerScoring(player1)
-        }
-        binding.player2ScoreButton.setOnClickListener {
-            match.playerScoring(player2)
-        }
         binding.createPlayerButton.setOnClickListener {
             if (!binding.playerNameEditText.text.isNullOrBlank()) {
-                playerViewModel.insertPlayer(PlayerEntity(binding.playerNameEditText.text.toString()))
+                mainViewModel.insertPlayer(PlayerEntity(binding.playerNameEditText.text.toString()))
                 binding.playerNameEditText.text = null
             }
         }
         binding.goToPlayersButton.setOnClickListener {
             startActivity(Intent(this, PlayersActivity::class.java))
         }
-    }
-
-    private fun setObservers() {
-        playerViewModel.players.observe(this) {
-            binding.playerCounterText.text = "${getString(R.string.players_registered)} : ${it?.size ?: 0}"
-        }
-        match.matchState.observe(this) {
-            currentMatchEntityState = MatchEntityFactory.createMatchEntity(it, match.winningSets)
-            when (it) {
-                is MatchState.InProgress -> {
-                    updateUIScore(it)
-                }
-                is MatchState.IsOver -> {
-                    updateUIScore(it)
-                    binding.player1ScoreButton.isEnabled = false
-                    binding.player2ScoreButton.isEnabled = false
-                    binding.winnerText.text = "Winner : ${it.winner.name}"
-                }
+        binding.startMatchButton.setOnClickListener {
+            allPlayers?.let { players ->
+                if(players.size < 2) return@setOnClickListener
+                val gson = Gson()
+                val p1 = gson.toJson(players[0].toPlayer())
+                val p2 = gson.toJson(players[1].toPlayer())
+                startActivity(MatchActivity.newIntent(this, p1, p2))
             }
         }
     }
 
-    private fun getScoreBoardOf(playerScore: PlayerScore): String {
-        var scoreBoard = "${playerScore.player.name} : "
-        playerScore.getSets().forEach {
-            scoreBoard += "${it.gameScore} | "
+    private fun setObservers() {
+        mainViewModel.players.observe(this) {
+            allPlayers = it
+            binding.playerCounterText.text = "${getString(R.string.players_registered)} : ${it?.size ?: 0}"
         }
-        scoreBoard += playerScore.getPoints()
-        return scoreBoard
+        mainViewModel.matches.observe(this) {
+            matchHistory = it
+            binding.matchCounterText.text = "Match played : ${it?.size ?: 0}"
+        }
     }
 }
