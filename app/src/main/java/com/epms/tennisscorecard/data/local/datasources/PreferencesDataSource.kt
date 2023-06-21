@@ -8,7 +8,7 @@ class PreferencesDataSource(context: Context) {
     private val editor = prefs.edit()
 
     companion object {
-        private const val preferenceName = "com.epms"
+        private const val preferenceName = "com.epms.tennisscorecard"
         private const val userIdKey = "user_id"
         private const val userNameKey = "user_name"
     }

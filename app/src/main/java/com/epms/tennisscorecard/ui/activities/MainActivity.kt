@@ -8,9 +8,7 @@ import com.epms.tennisscorecard.domain.models.Match
 import com.epms.tennisscorecard.domain.models.Player
 import com.epms.tennisscorecard.R
 import com.epms.tennisscorecard.databinding.ActivityMainBinding
-import com.epms.tennisscorecard.data.local.entities.MatchEntity
-import com.epms.tennisscorecard.data.local.entities.PlayerEntity
-import com.epms.tennisscorecard.data.local.entities.toPlayer
+import com.epms.tennisscorecard.domain.models.MatchRecap
 import com.epms.tennisscorecard.ui.viewModels.MainViewModel
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,8 +19,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var match: Match
     private lateinit var player1: Player
     private lateinit var player2: Player
-    private var allPlayers: List<PlayerEntity>? = null
-    private var matchHistory: List<MatchEntity>? = null
+    private var allPlayers: List<Player>? = null
+    private var matchHistory: List<MatchRecap>? = null
     private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     private fun setUIListeners() {
         binding.createPlayerButton.setOnClickListener {
             if (!binding.playerNameEditText.text.isNullOrBlank()) {
-                mainViewModel.insertPlayer(PlayerEntity(binding.playerNameEditText.text.toString()))
+                mainViewModel.insertPlayer(binding.playerNameEditText.text.toString())
                 binding.playerNameEditText.text = null
             }
         }
@@ -57,8 +55,8 @@ class MainActivity : AppCompatActivity() {
             allPlayers?.let { players ->
                 if(players.size < 2) return@setOnClickListener
                 val gson = Gson()
-                val p1 = gson.toJson(players[0].toPlayer())
-                val p2 = gson.toJson(players[1].toPlayer())
+                val p1 = gson.toJson(players[0])
+                val p2 = gson.toJson(players[1])
                 startActivity(MatchActivity.newIntent(this, p1, p2))
             }
         }

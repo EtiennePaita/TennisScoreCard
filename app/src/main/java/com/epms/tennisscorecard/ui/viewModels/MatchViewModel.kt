@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.epms.tennisscorecard.data.local.entities.MatchEntity
+import com.epms.tennisscorecard.data.local.datasources.PreferencesDataSource
+import com.epms.tennisscorecard.domain.models.MatchRecap
+import com.epms.tennisscorecard.domain.models.MatchState
 import com.epms.tennisscorecard.domain.repositories.MatchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -15,10 +17,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MatchViewModel @Inject constructor(
-    private val matchRepository: MatchRepository
+    private val matchRepository: MatchRepository,
 ) : ViewModel() {
-    private val _matchEntities: MutableLiveData<List<MatchEntity>?> = MutableLiveData()
-    val matchEntities: LiveData<List<MatchEntity>?> = _matchEntities
+    private val _matchEntities: MutableLiveData<List<MatchRecap>?> = MutableLiveData()
+    val matchEntities: LiveData<List<MatchRecap>?> = _matchEntities
 
     fun getMatchHistory(){
         viewModelScope.launch {
@@ -32,11 +34,11 @@ class MatchViewModel @Inject constructor(
         }
     }
 
-    fun insertMatch(match: MatchEntity) {
+    fun insertMatch(matchState: MatchState, winningSets: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    matchRepository.insertMatch(match)
+                    matchRepository.insertMatch(matchState, winningSets)
                 } catch (e: Exception) {
                     Log.e("MatchViewModel", "Insert error : $e")
                 }

@@ -5,16 +5,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.epms.tennisscorecard.databinding.ItemPlayerBinding
-import com.epms.tennisscorecard.data.local.entities.PlayerEntity
+import com.epms.tennisscorecard.domain.models.Player
 
 
 class PlayersAdapter(
     private val listener: PlayersInterface
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var players: List<PlayerEntity?>? = null
+    private var players: List<Player?>? = null
 
     interface PlayersInterface {
-        fun onPlayerClick(eventEntity: PlayerEntity)
+        fun onPlayerClick(eventEntity: Player)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -38,7 +38,7 @@ class PlayersAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(entities: List<PlayerEntity?>?) {
+    fun setData(entities: List<Player?>?) {
         players = entities
         notifyDataSetChanged()
     }

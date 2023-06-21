@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.epms.tennisscorecard.databinding.ActivityPlayersBinding
-import com.epms.tennisscorecard.data.local.entities.PlayerEntity
+import com.epms.tennisscorecard.domain.models.Player
 import com.epms.tennisscorecard.ui.adapters.PlayersAdapter
 import com.epms.tennisscorecard.ui.viewModels.PlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,7 +37,7 @@ class PlayersActivity: AppCompatActivity(), PlayersAdapter.PlayersInterface {
         }
     }
 
-    override fun onPlayerClick(eventEntity: PlayerEntity) {
+    override fun onPlayerClick(eventEntity: Player) {
         // Do something
     }
 }

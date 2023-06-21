@@ -128,6 +128,7 @@ class Match(
         }
     }
 
+    //TODO : remove belows
     //Only for testing
     fun getPlayer1Score() = player1Score
 

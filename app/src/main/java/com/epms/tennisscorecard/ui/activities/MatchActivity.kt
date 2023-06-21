@@ -10,8 +10,6 @@ import com.epms.tennisscorecard.domain.models.MatchState
 import com.epms.tennisscorecard.domain.models.Player
 import com.epms.tennisscorecard.domain.models.PlayerScore
 import com.epms.tennisscorecard.databinding.ActivityMatchBinding
-import com.epms.tennisscorecard.data.local.entities.MatchEntity
-import com.epms.tennisscorecard.domain.factories.MatchEntityFactory
 import com.epms.tennisscorecard.ui.viewModels.MatchViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -23,7 +21,7 @@ class MatchActivity: AppCompatActivity() {
     private lateinit var opponent: Player
     private lateinit var user: Player
     private lateinit var match: Match
-    private var currentMatchEntityState: MatchEntity? = null
+    private var currentMatchEntityState: MatchState? = null
     private val matchViewModel: MatchViewModel by viewModels()
 
     companion object {
@@ -74,7 +72,7 @@ class MatchActivity: AppCompatActivity() {
 
     private fun setObservers() {
         match.matchState.observe(this) {
-            currentMatchEntityState = MatchEntityFactory.createMatchEntity(it, match.winningSets)
+            currentMatchEntityState = it
             when (it) {
                 is MatchState.InProgress -> {
                     updateUIScore(it)
@@ -87,7 +85,7 @@ class MatchActivity: AppCompatActivity() {
 
                     //TODO : showVictoryPopup -> save match -> finish()
 
-                    matchViewModel.insertMatch(MatchEntityFactory.createMatchEntity(it, match.winningSets))
+                    matchViewModel.insertMatch(it, match.winningSets)
                 }
             }
         }
@@ -107,5 +105,4 @@ class MatchActivity: AppCompatActivity() {
         return scoreBoard
     }
 
-    //private fun show
 }

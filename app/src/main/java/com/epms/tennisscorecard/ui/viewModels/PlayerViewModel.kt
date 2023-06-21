@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.epms.tennisscorecard.data.local.entities.PlayerEntity
+import com.epms.tennisscorecard.domain.models.Player
 import com.epms.tennisscorecard.domain.repositories.PlayerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,8 +17,8 @@ import javax.inject.Inject
 class PlayerViewModel @Inject constructor(
     private val playerRepository: PlayerRepository
 ) : ViewModel() {
-    private val _players: MutableLiveData<List<PlayerEntity>> = MutableLiveData()
-    val players: LiveData<List<PlayerEntity>?> = _players
+    private val _players: MutableLiveData<List<Player>> = MutableLiveData()
+    val players: LiveData<List<Player>?> = _players
 
     fun getPlayers() {
         viewModelScope.launch {
@@ -33,11 +33,11 @@ class PlayerViewModel @Inject constructor(
         }
     }
 
-    fun insertPlayer(player: PlayerEntity) {
+    fun insertPlayer(playerName: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    playerRepository.insertPlayer(player)
+                    playerRepository.insertPlayer(playerName)
                 } catch (e: Exception) {
                     Log.e("PlayerViewModel", "Insert error : $e")
                 }

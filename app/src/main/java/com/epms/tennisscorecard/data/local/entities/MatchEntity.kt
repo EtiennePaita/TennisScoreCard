@@ -5,6 +5,8 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.epms.tennisscorecard.domain.models.MatchRecap
+import com.epms.tennisscorecard.domain.models.Player
 import com.epms.tennisscorecard.domain.models.Set
 
 @Entity(
@@ -29,6 +31,15 @@ data class MatchEntity(
     @ColumnInfo(name = "match_id")
     var matchId: Int = 0
 }
+
+fun MatchEntity.toMatchRecap(): MatchRecap = MatchRecap(
+    matchId = this.matchId,
+    opponent = this.opponent,
+    userScore = this.userScore,
+    opponentScore = this.opponentScore,
+    winningSets = this.winningSets,
+    isOver = this.isOver
+)
 
 data class Score(
     val currentGamePoints: Int,

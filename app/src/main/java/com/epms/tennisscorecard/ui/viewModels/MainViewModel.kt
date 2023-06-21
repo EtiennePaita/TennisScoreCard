@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.epms.tennisscorecard.data.local.entities.MatchEntity
-import com.epms.tennisscorecard.data.local.entities.PlayerEntity
+import com.epms.tennisscorecard.domain.models.MatchRecap
+import com.epms.tennisscorecard.domain.models.Player
 import com.epms.tennisscorecard.domain.repositories.MatchRepository
 import com.epms.tennisscorecard.domain.repositories.PlayerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,11 +20,11 @@ class MainViewModel @Inject constructor(
     private val playerRepository: PlayerRepository,
     private val matchRepository: MatchRepository
 ) : ViewModel() {
-    private val _players: MutableLiveData<List<PlayerEntity>?> = MutableLiveData()
-    val players: LiveData<List<PlayerEntity>?> = _players
+    private val _players: MutableLiveData<List<Player>?> = MutableLiveData()
+    val players: LiveData<List<Player>?> = _players
 
-    private val _matches: MutableLiveData<List<MatchEntity>?> = MutableLiveData()
-    val matches: LiveData<List<MatchEntity>?> = _matches
+    private val _matches: MutableLiveData<List<MatchRecap>?> = MutableLiveData()
+    val matches: LiveData<List<MatchRecap>?> = _matches
 
     fun getPlayers() {
         viewModelScope.launch {
@@ -39,11 +39,11 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun insertPlayer(player: PlayerEntity) {
+    fun insertPlayer(playerName: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    playerRepository.insertPlayer(player)
+                    playerRepository.insertPlayer(playerName)
                 } catch (e: Exception) {
                     Log.e("MainViewModel", "Insert error : $e")
                 }
