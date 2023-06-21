@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import com.epms.tennisscorecard.domain.models.Match
 import com.epms.tennisscorecard.domain.models.MatchState
 import com.epms.tennisscorecard.domain.models.Player
@@ -16,7 +15,7 @@ import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MatchActivity: AppCompatActivity() {
+class MatchActivity: BaseActivity() {
     private lateinit var binding: ActivityMatchBinding
     private lateinit var opponent: Player
     private lateinit var user: Player
