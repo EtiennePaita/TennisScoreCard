@@ -1,4 +1,4 @@
-package com.epms.tennisscorecard
+package com.epms.tennisscorecard.domain.models
 
 /**
  * @property gameScore saves the number of games won on this set.

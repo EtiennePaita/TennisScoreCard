@@ -4,14 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.epms.tennisscorecard.Match
-import com.epms.tennisscorecard.Player
+import com.epms.tennisscorecard.domain.models.Match
+import com.epms.tennisscorecard.domain.models.Player
 import com.epms.tennisscorecard.R
 import com.epms.tennisscorecard.databinding.ActivityMainBinding
-import com.epms.tennisscorecard.models.MatchEntity
-import com.epms.tennisscorecard.models.PlayerEntity
-import com.epms.tennisscorecard.models.toPlayer
-import com.epms.tennisscorecard.viewModels.MainViewModel
+import com.epms.tennisscorecard.data.local.entities.MatchEntity
+import com.epms.tennisscorecard.data.local.entities.PlayerEntity
+import com.epms.tennisscorecard.data.local.entities.toPlayer
+import com.epms.tennisscorecard.ui.viewModels.MainViewModel
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 

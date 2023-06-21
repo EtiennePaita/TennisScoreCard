@@ -1,10 +1,10 @@
-package com.epms.tennisscorecard.models
+package com.epms.tennisscorecard.data.local.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.epms.tennisscorecard.Player
+import com.epms.tennisscorecard.domain.models.Player
 
 @Entity(
     tableName = "tsc_player",

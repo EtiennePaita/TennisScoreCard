@@ -1,4 +1,4 @@
-package com.epms.tennisscorecard.datasources
+package com.epms.tennisscorecard.data.local.datasources
 
 import android.content.Context
 import android.content.SharedPreferences

@@ -1,4 +1,4 @@
-package com.epms.tennisscorecard
+package com.epms.tennisscorecard.domain.models
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +12,12 @@ class Match(
     private val player2Score: PlayerScore = PlayerScore(player2)
     private var matchFinished = false
     private var winner: Player? = null
-    private val _matchState: MutableLiveData<MatchState> = MutableLiveData(MatchState.InProgress(player1Score,player2Score))
+    private val _matchState: MutableLiveData<MatchState> = MutableLiveData(
+        MatchState.InProgress(
+            player1Score,
+            player2Score
+        )
+    )
     val matchState: LiveData<MatchState> = _matchState
 
     init {

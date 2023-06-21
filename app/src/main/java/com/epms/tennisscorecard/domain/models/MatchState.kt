@@ -1,4 +1,4 @@
-package com.epms.tennisscorecard
+package com.epms.tennisscorecard.domain.models
 
 /**
  * MatchState defines the current state of a match.

@@ -5,10 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.epms.tennisscorecard.datasources.dao.MatchDao
-import com.epms.tennisscorecard.datasources.dao.PlayerDao
-import com.epms.tennisscorecard.models.MatchEntity
-import com.epms.tennisscorecard.models.PlayerEntity
+import com.epms.tennisscorecard.data.local.dao.MatchDao
+import com.epms.tennisscorecard.data.local.dao.PlayerDao
+import com.epms.tennisscorecard.data.local.entities.MatchEntity
+import com.epms.tennisscorecard.data.local.entities.PlayerEntity
 
 @TypeConverters(value = [TSCTypeConverters::class])
 @Database(entities = [MatchEntity::class, PlayerEntity::class], version = 1,exportSchema = true)

@@ -1,5 +1,8 @@
 package com.epms.tennisscorecard
 
+import com.epms.tennisscorecard.domain.models.Player
+import com.epms.tennisscorecard.domain.models.PlayerScore
+import com.epms.tennisscorecard.domain.models.TieBreak
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

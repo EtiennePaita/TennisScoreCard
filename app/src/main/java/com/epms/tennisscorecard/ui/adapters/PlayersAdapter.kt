@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.epms.tennisscorecard.databinding.ItemPlayerBinding
-import com.epms.tennisscorecard.models.PlayerEntity
+import com.epms.tennisscorecard.data.local.entities.PlayerEntity
 
 
 class PlayersAdapter(

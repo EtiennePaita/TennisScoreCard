@@ -1,6 +1,9 @@
-package com.epms.tennisscorecard.models
+package com.epms.tennisscorecard.domain.factories
 
-import com.epms.tennisscorecard.MatchState
+import com.epms.tennisscorecard.domain.models.MatchState
+import com.epms.tennisscorecard.data.local.entities.MatchEntity
+import com.epms.tennisscorecard.data.local.entities.PlayerEntity
+import com.epms.tennisscorecard.data.local.entities.Score
 
 object MatchEntityFactory {
 

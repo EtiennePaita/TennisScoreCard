@@ -1,7 +1,7 @@
 package com.epms.tennisscorecard.db
 
 import androidx.room.TypeConverter
-import com.epms.tennisscorecard.models.Score
+import com.epms.tennisscorecard.data.local.entities.Score
 import com.google.gson.Gson
 
 class TSCTypeConverters {

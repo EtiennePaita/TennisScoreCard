@@ -1,7 +1,7 @@
-package com.epms.tennisscorecard.repositories
+package com.epms.tennisscorecard.domain.repositories
 
 import com.epms.tennisscorecard.TennisScoreCardApp
-import com.epms.tennisscorecard.models.MatchEntity
+import com.epms.tennisscorecard.data.local.entities.MatchEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

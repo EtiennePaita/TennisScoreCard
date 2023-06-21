@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.epms.tennisscorecard.databinding.ActivityPlayersBinding
-import com.epms.tennisscorecard.models.PlayerEntity
+import com.epms.tennisscorecard.data.local.entities.PlayerEntity
 import com.epms.tennisscorecard.ui.adapters.PlayersAdapter
-import com.epms.tennisscorecard.viewModels.PlayerViewModel
+import com.epms.tennisscorecard.ui.viewModels.PlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

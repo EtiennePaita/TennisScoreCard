@@ -1,6 +1,6 @@
-package com.epms.tennisscorecard
+package com.epms.tennisscorecard.domain.models
 
-import com.epms.tennisscorecard.models.PlayerEntity
+import com.epms.tennisscorecard.data.local.entities.PlayerEntity
 
 data class Player(
     val id: Int,

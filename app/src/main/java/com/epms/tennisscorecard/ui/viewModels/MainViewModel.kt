@@ -1,14 +1,14 @@
-package com.epms.tennisscorecard.viewModels
+package com.epms.tennisscorecard.ui.viewModels
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.epms.tennisscorecard.models.MatchEntity
-import com.epms.tennisscorecard.models.PlayerEntity
-import com.epms.tennisscorecard.repositories.MatchRepository
-import com.epms.tennisscorecard.repositories.PlayerRepository
+import com.epms.tennisscorecard.data.local.entities.MatchEntity
+import com.epms.tennisscorecard.data.local.entities.PlayerEntity
+import com.epms.tennisscorecard.domain.repositories.MatchRepository
+import com.epms.tennisscorecard.domain.repositories.PlayerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

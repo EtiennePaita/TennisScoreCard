@@ -1,10 +1,10 @@
-package com.epms.tennisscorecard.datasources.dao
+package com.epms.tennisscorecard.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.epms.tennisscorecard.models.MatchEntity
+import com.epms.tennisscorecard.data.local.entities.MatchEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
