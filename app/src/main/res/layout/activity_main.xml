@@ -10,7 +10,7 @@
     tools:context=".ui.activities.MainActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/mainLayout"
+        android:id="@+id/main_Layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_with_rounded_corners"
@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
@@ -45,7 +45,7 @@
             android:textSize="16dp" />
 
         <TextView
-            android:id="@+id/labelCompanion"
+            android:id="@+id/label_companion"
             android:layout_width="192dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -68,12 +68,13 @@
             android:layout_height="50dp"
             android:background="@drawable/background_with_rounded_corners"
             android:hint="@string/player_name_hint"
-            android:paddingLeft="16dp"
+            android:paddingLeft="8sp"
+            android:paddingRight="0sp"
             android:text="Companion name"
-            android:textSize="14dp" />
+            android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/labelPlayer"
+            android:id="@+id/label_player"
             android:layout_width="192dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -88,8 +89,8 @@
             android:layout_height="50dp"
             android:background="@drawable/background_with_rounded_corners"
             android:hint="@string/player_name_hint"
-            android:paddingLeft="16dp"
-            android:textSize="14dp" />
+            android:paddingLeft="16sp"
+            android:textSize="14sp" />
 
         <!--<androidx.appcompat.widget.AppCompatButton
             android:id="@+id/create_player_button"
