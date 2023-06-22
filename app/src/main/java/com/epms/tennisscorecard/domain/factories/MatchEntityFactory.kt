@@ -27,7 +27,8 @@ object MatchEntityFactory {
                 matchState.player2State.getSets()
             ),
             winningSets = winningSets,
-            isOver = matchState is MatchState.IsOver
+            isOver = matchState is MatchState.IsOver,
+            winnerId = if(matchState is MatchState.IsOver) matchState.winner.id else null
         )
     }
 
@@ -39,7 +40,8 @@ object MatchEntityFactory {
             userScore = matchEntity.userScore,
             opponentScore = matchEntity.opponentScore,
             winningSets = matchEntity.winningSets,
-            isOver = matchEntity.isOver
+            isOver = matchEntity.isOver,
+            winnerId = matchEntity.winnerId
         )
     }
 

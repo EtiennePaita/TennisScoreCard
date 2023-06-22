@@ -9,5 +9,6 @@ data class MatchRecap(
     val userScore: Score,
     val opponentScore: Score,
     val winningSets: Int,
-    val isOver: Boolean
+    val isOver: Boolean,
+    val winnerId: Int?
 )

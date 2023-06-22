@@ -18,7 +18,7 @@ data class MatchEntity(
     @Embedded(prefix = "user_")
     val user: PlayerEntity,
     @Embedded(prefix = "opponent_")
-    val opponent: PlayerEntity,                     // Store only playerID ??
+    val opponent: PlayerEntity,
     @ColumnInfo(name = "user_score")
     val userScore: Score,
     @ColumnInfo(name = "opponent_score")
@@ -26,7 +26,9 @@ data class MatchEntity(
     @ColumnInfo(name = "winning_sets")
     val winningSets: Int,
     @ColumnInfo(name = "is_over")
-    val isOver: Boolean
+    val isOver: Boolean,
+    @ColumnInfo(name = "winner_id")
+    val winnerId: Int?
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "match_id")
@@ -40,7 +42,8 @@ fun MatchEntity.toMatchRecap(): MatchRecap = MatchRecap(
     userScore = this.userScore,
     opponentScore = this.opponentScore,
     winningSets = this.winningSets,
-    isOver = this.isOver
+    isOver = this.isOver,
+    winnerId = this.winnerId
 )
 
 data class Score(
