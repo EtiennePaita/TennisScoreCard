@@ -47,13 +47,21 @@ class HistoryActivity: BaseActivity(), HistoryAdapter.MatchHistoryInterface {
         historyViewModel.matches.observe(this) { history ->
             historyAdapter.setData(history)
             history?.let {
-                binding.historyRecyclerview.visibility = View.VISIBLE
-                binding.noHistoryTextView.visibility = View.GONE
+                if(it.isEmpty()) showEmptyView() else hideEmptyView()
             } ?: run {
-                binding.noHistoryTextView.visibility = View.VISIBLE
-                binding.historyRecyclerview.visibility = View.GONE
+                showEmptyView()
             }
         }
+    }
+
+    private fun showEmptyView() {
+        binding.noHistoryTextView.visibility = View.VISIBLE
+        binding.historyRecyclerview.visibility = View.GONE
+    }
+
+    private fun hideEmptyView() {
+        binding.historyRecyclerview.visibility = View.VISIBLE
+        binding.noHistoryTextView.visibility = View.GONE
     }
 
     override fun onMatchClick(matchId: Int) {
