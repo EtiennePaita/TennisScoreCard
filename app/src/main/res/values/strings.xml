@@ -22,4 +22,8 @@
     <!-- History -->
     <string name="history_title">Match history</string>
     <string name="history_not_found_error">No history of match found</string>
+
+    <!-- Players -->
+    <string name="players_not_found_error">No companion found</string>
+    <string name="new_player_cta_content_description">Create a new companion</string>
 </resources>

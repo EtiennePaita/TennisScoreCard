@@ -26,6 +26,7 @@
     <!-- PlayersActivity dimens -->
     <dimen name="item_player_horizontal_margin">30dp</dimen>
     <dimen name="item_player_vertical_margin">10dp</dimen>
+    <dimen name="new_player_cta_margin">20dp</dimen>
 
     <!-- History dimens -->
     <dimen name="item_history_horizontal_margin">30dp</dimen>

@@ -10,7 +10,7 @@ import com.epms.tennisscorecard.TennisScoreCardApp
 import com.epms.tennisscorecard.domain.models.Match
 import com.epms.tennisscorecard.domain.models.Player
 import com.epms.tennisscorecard.databinding.ActivityMainBinding
-import com.epms.tennisscorecard.databinding.AlertFirstConnectionBinding
+import com.epms.tennisscorecard.databinding.AlertGetNameBinding
 import com.epms.tennisscorecard.domain.models.MatchRecap
 import com.epms.tennisscorecard.ui.viewModels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setCancelable(false)
         val alertdialogView = builder.create()
-        val alertBinding = AlertFirstConnectionBinding.inflate(layoutInflater)
+        val alertBinding = AlertGetNameBinding.inflate(layoutInflater)
         alertdialogView.setView(alertBinding.root)
         alertdialogView.window?.setBackgroundDrawableResource(R.color.transparent)
 
