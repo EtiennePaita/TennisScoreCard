@@ -15,6 +15,9 @@
     <string name="start_match">Start match</string>
     <string name="main_background_content_description">Tennis field background image</string>
     <string name="companions">Companions</string>
+    <string name="welcome">Welcome !</string>
+    <string name="who_are_you">Who are you ?</string>
+    <string name="register">Register</string>
 
     <!-- History -->
     <string name="history_title">Match history</string>

@@ -4,13 +4,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
+import com.epms.tennisscorecard.R
+import com.epms.tennisscorecard.TennisScoreCardApp
 import com.epms.tennisscorecard.domain.models.Match
 import com.epms.tennisscorecard.domain.models.Player
 import com.epms.tennisscorecard.databinding.ActivityMainBinding
-import com.epms.tennisscorecard.data.local.entities.toPlayer
+import com.epms.tennisscorecard.databinding.AlertFirstConnectionBinding
 import com.epms.tennisscorecard.domain.models.MatchRecap
 import com.epms.tennisscorecard.ui.viewModels.MainViewModel
-import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if(TennisScoreCardApp.user == null) mainViewModel.getUser()
 
         mainViewModel.getPlayers()
         mainViewModel.getAllMatches()
@@ -78,5 +82,31 @@ class MainActivity : AppCompatActivity() {
             matchHistory = it
             binding.matchCounterText.text = "Match played : ${it?.size ?: 0}"
         }*/
+        mainViewModel.user.observe(this) {
+            it?.let {
+                TennisScoreCardApp.user = it
+            } ?: run {
+                showUserRegisterPopupAlert()
+            }
+        }
+    }
+
+
+    private fun showUserRegisterPopupAlert() {
+        val builder = AlertDialog.Builder(this)
+        builder.setCancelable(false)
+        val alertdialogView = builder.create()
+        val alertBinding = AlertFirstConnectionBinding.inflate(layoutInflater)
+        alertdialogView.setView(alertBinding.root)
+        alertdialogView.window?.setBackgroundDrawableResource(R.color.transparent)
+
+        alertBinding.registerButton.setOnClickListener {
+            if (alertBinding.userNameEditText.text?.isNotBlank() == true) {
+                mainViewModel.setUser(alertBinding.userNameEditText.text.toString())
+                alertdialogView.dismiss()
+            }
+        }
+
+        alertdialogView.show()
     }
 }

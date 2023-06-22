@@ -5,4 +5,6 @@
     <color name="container">#E6FFFFFF</color>
     <color name="Accent">#CC6328</color>
     <color name="green">#5CCC28</color>
+    <color name="transparent">#00000000</color>
+    <color name="tag_red">#FF482F</color>
 </resources>

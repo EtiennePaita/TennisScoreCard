@@ -9,7 +9,8 @@ import com.epms.tennisscorecard.domain.models.Player
 @Entity(
     tableName = "tsc_player",
     indices = [
-        Index(value = ["player_id"], unique = true)
+        Index(value = ["player_id"], unique = true),
+        Index(value = ["player_name"], unique = true),
     ]
 )
 data class PlayerEntity(

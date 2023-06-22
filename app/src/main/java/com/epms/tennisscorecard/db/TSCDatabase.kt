@@ -7,14 +7,17 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.epms.tennisscorecard.data.local.dao.MatchDao
 import com.epms.tennisscorecard.data.local.dao.PlayerDao
+import com.epms.tennisscorecard.data.local.dao.UserDao
 import com.epms.tennisscorecard.data.local.entities.MatchEntity
 import com.epms.tennisscorecard.data.local.entities.PlayerEntity
+import com.epms.tennisscorecard.data.local.entities.UserEntity
 
 @TypeConverters(value = [TSCTypeConverters::class])
-@Database(entities = [MatchEntity::class, PlayerEntity::class], version = 1,exportSchema = true)
+@Database(entities = [MatchEntity::class, PlayerEntity::class, UserEntity::class], version = 1,exportSchema = true)
 abstract class TSCDatabase: RoomDatabase() {
     abstract fun MatchDao(): MatchDao
     abstract fun PlayerDao(): PlayerDao
+    abstract fun UserDao(): UserDao
 
     companion object {
         @Volatile private var instance: TSCDatabase? = null

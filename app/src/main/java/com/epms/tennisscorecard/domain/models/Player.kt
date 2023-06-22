@@ -9,4 +9,4 @@ data class Player(
     fun equals(player: Player): Boolean = this.id == player.id
 }
 
-fun Player.toPlayerEntity() = PlayerEntity(name)
+fun Player.toPlayerEntity() = PlayerEntity(name).also { it.playerId = this.id }

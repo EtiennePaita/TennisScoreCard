@@ -1,21 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.MainActivity">
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/background"
-        android:scaleType="centerCrop"
-        android:contentDescription="@string/main_background_content_description"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/main_Layout"
@@ -24,25 +11,34 @@
         android:background="@drawable/background_with_rounded_corners"
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/main_layout_top_margin"
         android:layout_marginStart="@dimen/screen_horizontal_margin"
         android:layout_marginEnd="@dimen/screen_horizontal_margin"
         android:paddingVertical="@dimen/start_match_layout_vertical_padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/screen_horizontal_margin"
+            android:text="@string/welcome"
+            android:textColor="@color/black"
+            android:textSize="@dimen/h2_size"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="@dimen/start_match_layout_text_width"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/start_match_layout_text_bottom_margin"
-            android:text="@string/companion_name"
+            android:text="@string/who_are_you"
             android:textColor="@color/black"
             android:textSize="@dimen/body_large_size"
             android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/name_edit_text"
+            android:id="@+id/user_name_edit_text"
             android:layout_width="@dimen/start_match_layout_edit_text_width"
             android:layout_height="@dimen/start_match_layout_edit_text_height"
             android:background="@drawable/background_with_rounded_corners"
@@ -52,43 +48,16 @@
             android:textSize="@dimen/body_large_size" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/start_match_button"
+            android:id="@+id/register_button"
             android:layout_width="@dimen/button_width"
             android:layout_height="@dimen/start_match_layout_start_button_height"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/start_match_layout_start_button_top_margin"
             android:background="@drawable/background_with_rounded_corners"
             android:backgroundTint="@color/Accent"
-            android:text="@string/start_match"
+            android:text="@string/register"
             android:textColor="@color/container" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/match_history_button"
-        android:layout_width="@dimen/button_width"
-        android:layout_height="@dimen/start_match_layout_start_button_height"
-        android:background="@drawable/background_with_rounded_corners"
-        android:textColor="@color/Accent"
-        android:text="@string/history_title"
-        android:layout_marginTop="@dimen/main_cta_spacing"
-        app:layout_constraintTop_toBottomOf="@id/main_Layout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/companions_button"
-        android:layout_width="@dimen/button_width"
-        android:layout_height="@dimen/start_match_layout_start_button_height"
-        android:background="@drawable/background_with_rounded_corners"
-        android:textColor="@color/Accent"
-        android:text="@string/companions"
-        android:layout_marginTop="@dimen/main_cta_spacing"
-        app:layout_constraintTop_toBottomOf="@id/match_history_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
