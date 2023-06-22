@@ -33,8 +33,8 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.getPlayers()
         mainViewModel.getAllMatches()
         setUpTestMatch()
-        setUIListeners()
-        setObservers()
+        //setUIListeners()
+        //setObservers()
 
     }
 
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         match = Match(player1, player2)
     }
 
-    private fun setUIListeners() {
+    /*private fun setUIListeners() {
         binding.createPlayerButton.setOnClickListener {
             if (!binding.playerNameEditText.text.isNullOrBlank()) {
                 mainViewModel.insertPlayer(PlayerEntity(binding.playerNameEditText.text.toString()))
@@ -74,5 +74,5 @@ class MainActivity : AppCompatActivity() {
             matchHistory = it
             binding.matchCounterText.text = "Match played : ${it?.size ?: 0}"
         }
-    }
+    }*/
 }
