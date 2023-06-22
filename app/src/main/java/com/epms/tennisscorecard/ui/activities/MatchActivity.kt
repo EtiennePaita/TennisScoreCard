@@ -61,15 +61,17 @@ class MatchActivity: AppCompatActivity() {
 
     private fun setupMatch() {
         match = Match(user, opponent)
+        binding.player1Name.text = user.name
+        binding.player2Name.text = user.name
     }
 
     private fun setUIListeners() {
-        /*binding.player1ScoreButton.setOnClickListener {
+        binding.buttonIncrementPlayer1.setOnClickListener {
             match.playerScoring(user)
         }
-        binding.player2ScoreButton.setOnClickListener {
+        binding.buttonIncrementPlayer2.setOnClickListener {
             match.playerScoring(opponent)
-        }*/
+        }
     }
 
     private fun setObservers() {

@@ -97,7 +97,7 @@
                     app:srcCompat="@drawable/circle_shape_red" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/player_1_name2"
+                    android:id="@+id/player_2_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -133,15 +133,6 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/button_decrease_player1"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_margin="5dp"
-                    android:backgroundTint="@color/container"
-                    android:text="-"
-                    android:textColor="@color/Accent" />
-
-                <Button
                     android:id="@+id/button_increment_player1"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
@@ -157,15 +148,6 @@
                 android:layout_weight="1"
                 android:gravity="end"
                 android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/button_decrease_player2"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_margin="5dp"
-                    android:backgroundTint="@color/container"
-                    android:text="-"
-                    android:textColor="@color/Accent" />
 
                 <Button
                     android:id="@+id/button_increment_player2"
