@@ -100,7 +100,7 @@ class MatchActivity: BaseActivity() {
         playerScore.getSets().forEach {
             scoreBoard += "${it.gameScore} | "
         }
-        scoreBoard += playerScore.getPoints()
+        scoreBoard += if(playerScore.hasAdvantage()) "A" else playerScore.getPoints()
         return scoreBoard
     }
 
