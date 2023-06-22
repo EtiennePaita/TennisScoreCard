@@ -33,8 +33,8 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.getPlayers()
         mainViewModel.getAllMatches()
         setUpTestMatch()
-        //setUIListeners()
-        //setObservers()
+        setUIListeners()
+        setObservers()
 
     }
 
@@ -44,13 +44,13 @@ class MainActivity : AppCompatActivity() {
         match = Match(player1, player2)
     }
 
-    /*private fun setUIListeners() {
-        binding.createPlayerButton.setOnClickListener {
+    private fun setUIListeners() {
+        /*binding.createPlayerButton.setOnClickListener {
             if (!binding.playerNameEditText.text.isNullOrBlank()) {
                 mainViewModel.insertPlayer(PlayerEntity(binding.playerNameEditText.text.toString()))
                 binding.playerNameEditText.text = null
             }
-        }
+        }*/
         binding.goToPlayersButton.setOnClickListener {
             startActivity(Intent(this, PlayersActivity::class.java))
         }
@@ -66,13 +66,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setObservers() {
-        mainViewModel.players.observe(this) {
+        /*mainViewModel.players.observe(this) {
             allPlayers = it
             binding.playerCounterText.text = "${getString(R.string.players_registered)} : ${it?.size ?: 0}"
         }
         mainViewModel.matches.observe(this) {
             matchHistory = it
             binding.matchCounterText.text = "Match played : ${it?.size ?: 0}"
-        }
-    }*/
+        }*/
+    }
 }

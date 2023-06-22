@@ -64,12 +64,12 @@ class MatchActivity: AppCompatActivity() {
     }
 
     private fun setUIListeners() {
-        binding.player1ScoreButton.setOnClickListener {
+        /*binding.player1ScoreButton.setOnClickListener {
             match.playerScoring(user)
         }
         binding.player2ScoreButton.setOnClickListener {
             match.playerScoring(opponent)
-        }
+        }*/
     }
 
     private fun setObservers() {
@@ -81,8 +81,9 @@ class MatchActivity: AppCompatActivity() {
                 }
                 is MatchState.IsOver -> {
                     updateUIScore(it)
-                    binding.player1ScoreButton.isEnabled = false
+                    /*binding.player1ScoreButton.isEnabled = false
                     binding.player2ScoreButton.isEnabled = false
+                    */
                     //binding.winnerText.text = "Winner : ${it.winner.name}"
 
                     //TODO : showVictoryPopup -> save match -> finish()
