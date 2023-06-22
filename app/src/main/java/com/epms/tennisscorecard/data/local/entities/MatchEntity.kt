@@ -5,6 +5,7 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+
 import com.epms.tennisscorecard.domain.models.MatchRecap
 import com.epms.tennisscorecard.domain.models.Set
 
@@ -50,21 +51,3 @@ data class Score(
     val currentGamePoints: Int,
     val sets: List<Set>
 )
-
-/*sealed interface MatchState {
-    val player1State: PlayerScore
-    val player2State: PlayerScore
-
-    data class IsOver(
-        override val player1State: PlayerScore,
-        override val player2State: PlayerScore,
-        val winner: Player
-    ): MatchState
-
-    data class InProgress(
-        override val player1State: PlayerScore,
-        override val player2State: PlayerScore
-    ): MatchState
-
-}*/
-

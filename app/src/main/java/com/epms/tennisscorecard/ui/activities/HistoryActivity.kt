@@ -3,6 +3,7 @@ package com.epms.tennisscorecard.ui.activities
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.epms.tennisscorecard.R
 import com.epms.tennisscorecard.databinding.ActivityHistoryBinding
 import com.epms.tennisscorecard.ui.adapters.HistoryAdapter
@@ -10,7 +11,7 @@ import com.epms.tennisscorecard.ui.viewModels.HistoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HistoryActivity: BaseActivity(), HistoryAdapter.MatchHistoryInterface {
+class HistoryActivity: AppCompatActivity(), HistoryAdapter.MatchHistoryInterface {
     private lateinit var binding: ActivityHistoryBinding
     private lateinit var historyAdapter: HistoryAdapter
     private val historyViewModel: HistoryViewModel by viewModels()

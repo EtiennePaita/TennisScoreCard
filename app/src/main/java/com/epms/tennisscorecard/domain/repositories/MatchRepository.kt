@@ -1,7 +1,6 @@
 package com.epms.tennisscorecard.domain.repositories
 
 import com.epms.tennisscorecard.TennisScoreCardApp
-import com.epms.tennisscorecard.data.local.entities.MatchEntity
 import com.epms.tennisscorecard.data.local.entities.toMatchRecap
 import com.epms.tennisscorecard.domain.factories.MatchEntityFactory
 import com.epms.tennisscorecard.domain.models.MatchRecap

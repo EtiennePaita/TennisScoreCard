@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.epms.tennisscorecard.domain.models.Match
 import com.epms.tennisscorecard.domain.models.MatchState
 import com.epms.tennisscorecard.domain.models.Player
@@ -15,7 +16,7 @@ import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MatchActivity: BaseActivity() {
+class MatchActivity: AppCompatActivity() {
     private lateinit var binding: ActivityMatchBinding
     private lateinit var opponent: Player
     private lateinit var user: Player
@@ -58,13 +59,15 @@ class MatchActivity: BaseActivity() {
 
     private fun setupMatch() {
         match = Match(user, opponent)
+        binding.player1Name.text = user.name
+        binding.player2Name.text = user.name
     }
 
     private fun setUIListeners() {
-        binding.player1ScoreButton.setOnClickListener {
+        binding.buttonIncrementPlayer1.setOnClickListener {
             match.playerScoring(user)
         }
-        binding.player2ScoreButton.setOnClickListener {
+        binding.buttonIncrementPlayer2.setOnClickListener {
             match.playerScoring(opponent)
         }
     }
@@ -78,8 +81,9 @@ class MatchActivity: BaseActivity() {
                 }
                 is MatchState.IsOver -> {
                     updateUIScore(it)
-                    binding.player1ScoreButton.isEnabled = false
+                    /*binding.player1ScoreButton.isEnabled = false
                     binding.player2ScoreButton.isEnabled = false
+                    */
                     //binding.winnerText.text = "Winner : ${it.winner.name}"
 
                     //TODO : showVictoryPopup -> save match -> finish()
@@ -104,4 +108,5 @@ class MatchActivity: BaseActivity() {
         return scoreBoard
     }
 
+    //private fun show
 }

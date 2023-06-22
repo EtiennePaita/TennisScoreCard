@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.epms.tennisscorecard.data.local.datasources.PreferencesDataSource
 import com.epms.tennisscorecard.domain.models.MatchRecap
 import com.epms.tennisscorecard.domain.models.MatchState
 import com.epms.tennisscorecard.domain.repositories.MatchRepository
@@ -17,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MatchViewModel @Inject constructor(
-    private val matchRepository: MatchRepository,
+    private val matchRepository: MatchRepository
 ) : ViewModel() {
     private val _matchEntities: MutableLiveData<List<MatchRecap>?> = MutableLiveData()
     val matchEntities: LiveData<List<MatchRecap>?> = _matchEntities

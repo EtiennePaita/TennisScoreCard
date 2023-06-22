@@ -44,5 +44,4 @@ object MatchEntityFactory {
             winnerId = matchEntity.winnerId
         )
     }
-
 }

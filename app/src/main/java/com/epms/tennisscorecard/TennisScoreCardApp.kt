@@ -2,7 +2,6 @@ package com.epms.tennisscorecard
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
-import com.epms.tennisscorecard.data.local.datasources.PreferencesDataSource
 import com.epms.tennisscorecard.db.TSCDatabase
 import dagger.hilt.android.HiltAndroidApp
 
