@@ -33,17 +33,20 @@ class HistoryAdapter(
                 listener.onMatchClick(match.matchId)
             }
 
-            if (match.isOver) {
-                if(match.winnerId == match.user.id) {
-                    viewHolder.itemBinding.player1Name.setTextColor(
-                        viewHolder.itemBinding.player1Name.context.getColor(R.color.green)
-                    )
-                } else if(match.winnerId == match.opponent.id) {
-                    viewHolder.itemBinding.player1Name.setTextColor(
-                        viewHolder.itemBinding.player1Name.context.getColor(R.color.green)
-                    )
-                }
-            } else {
+            viewHolder.itemBinding.player1Name.setTextColor(
+                viewHolder.itemBinding.player1Name.context.getColor(
+                    if (match.isOver && match.winnerId == match.user.id) R.color.green
+                    else R.color.black
+                )
+            )
+            viewHolder.itemBinding.player2Name.setTextColor(
+                viewHolder.itemBinding.player2Name.context.getColor(
+                    if (match.isOver && match.winnerId == match.opponent.id) R.color.green
+                    else R.color.black
+                )
+            )
+
+            if (!match.isOver) {
                 //TODO : show icon or text "Match paused"
             }
         }
@@ -59,6 +62,7 @@ class HistoryAdapter(
         notifyDataSetChanged()
     }
 
-    class MatchHistoryViewHolder(val itemBinding: ItemHistoryBinding): RecyclerView.ViewHolder(itemBinding.root)
+    class MatchHistoryViewHolder(val itemBinding: ItemHistoryBinding) :
+        RecyclerView.ViewHolder(itemBinding.root)
 
 }
