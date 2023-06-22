@@ -4,6 +4,7 @@ import com.epms.tennisscorecard.domain.models.MatchState
 import com.epms.tennisscorecard.data.local.entities.MatchEntity
 import com.epms.tennisscorecard.data.local.entities.PlayerEntity
 import com.epms.tennisscorecard.data.local.entities.Score
+import com.epms.tennisscorecard.data.local.entities.toPlayer
 import com.epms.tennisscorecard.domain.models.MatchRecap
 
 object MatchEntityFactory {
@@ -11,6 +12,9 @@ object MatchEntityFactory {
     fun createMatchEntity(matchState: MatchState, winningSets: Int): MatchEntity {
 
         return MatchEntity(
+            user = PlayerEntity(matchState.player1State.player.name).also {
+                it.playerId = matchState.player1State.player.id
+            },
             opponent = PlayerEntity(matchState.player2State.player.name).also {
                 it.playerId = matchState.player2State.player.id
             },
@@ -30,7 +34,8 @@ object MatchEntityFactory {
     fun toMatchRecap(matchEntity: MatchEntity): MatchRecap {
         return MatchRecap(
             matchId = matchEntity.matchId,
-            opponent = matchEntity.opponent,
+            user = matchEntity.user.toPlayer(),
+            opponent = matchEntity.opponent.toPlayer(),
             userScore = matchEntity.userScore,
             opponentScore = matchEntity.opponentScore,
             winningSets = matchEntity.winningSets,
