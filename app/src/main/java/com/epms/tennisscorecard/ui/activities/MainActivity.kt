@@ -3,6 +3,10 @@ package com.epms.tennisscorecard.ui.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import com.epms.tennisscorecard.R
@@ -12,17 +16,20 @@ import com.epms.tennisscorecard.domain.models.Player
 import com.epms.tennisscorecard.databinding.ActivityMainBinding
 import com.epms.tennisscorecard.databinding.AlertGetNameBinding
 import com.epms.tennisscorecard.domain.models.MatchRecap
+import com.epms.tennisscorecard.domain.models.toPlayer
 import com.epms.tennisscorecard.ui.viewModels.MainViewModel
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var match: Match
     private lateinit var player1: Player
     private lateinit var player2: Player
     private var allPlayers: List<Player>? = null
     private var matchHistory: List<MatchRecap>? = null
+    private var companionSelected: Player? = null
     private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,10 +37,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if(TennisScoreCardApp.user == null) mainViewModel.getUser()
+        if (TennisScoreCardApp.user == null) mainViewModel.getUser()
 
         mainViewModel.getPlayers()
-        mainViewModel.getAllMatches()
         setUpTestMatch()
         setUIListeners()
         setObservers()
@@ -56,15 +62,20 @@ class MainActivity : AppCompatActivity() {
         /*binding.goToPlayersButton.setOnClickListener {
             startActivity(Intent(this, PlayersActivity::class.java))
         }*/
-        /*binding.startMatchButton.setOnClickListener {
-            allPlayers?.let { players ->
-                if(players.size < 2) return@setOnClickListener
-                val gson = Gson()
-                val p1 = gson.toJson(players[0].toPlayer())
-                val p2 = gson.toJson(players[1].toPlayer())
-                startActivity(MatchActivity.newIntent(this, p1, p2))
+        binding.startMatchButton.setOnClickListener {
+            TennisScoreCardApp.user?.let { user ->
+                companionSelected?.let { companion ->
+                    val gson = Gson()
+                    startActivity(
+                        MatchActivity.newIntent(
+                            this,
+                            gson.toJson(user.toPlayer()),
+                            gson.toJson(companion)
+                        )
+                    )
+                }
             }
-        }*/
+        }
         binding.matchHistoryButton.setOnClickListener {
             startActivity(Intent(this, HistoryActivity::class.java))
         }
@@ -74,11 +85,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setObservers() {
-        /*mainViewModel.players.observe(this) {
+        mainViewModel.players.observe(this) {
             allPlayers = it
-            binding.playerCounterText.text = "${getString(R.string.players_registered)} : ${it?.size ?: 0}"
+            setupSpinner()
         }
-        mainViewModel.matches.observe(this) {
+        /*mainViewModel.matches.observe(this) {
             matchHistory = it
             binding.matchCounterText.text = "Match played : ${it?.size ?: 0}"
         }*/
@@ -88,6 +99,24 @@ class MainActivity : AppCompatActivity() {
             } ?: run {
                 showUserRegisterPopupAlert()
             }
+        }
+    }
+
+    private fun setupSpinner() {
+        val aa = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            allPlayers?.map { it.name } ?: listOf()
+        )
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        with(binding.companionSpinner)
+        {
+            adapter = aa
+            setSelection(0, false)
+            onItemSelectedListener = this@MainActivity
+            prompt = "Select your companion"
+            gravity = Gravity.CENTER
+
         }
     }
 
@@ -108,5 +137,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         alertdialogView.show()
+    }
+
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+        allPlayers?.let { players ->
+            if (players.size > position) {
+                companionSelected = players[position]
+            }
+        }
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        //TODO("Not yet implemented")
     }
 }

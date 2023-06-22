@@ -74,7 +74,7 @@ class PlayersActivity: AppCompatActivity(), PlayersAdapter.PlayersInterface {
 
     private fun showCompanionCreatorPopupAlert() {
         val builder = AlertDialog.Builder(this)
-        builder.setCancelable(false)
+        builder.setCancelable(true)
         val alertdialogView = builder.create()
         val alertBinding = AlertGetNameBinding.inflate(layoutInflater)
         alertdialogView.setView(alertBinding.root)

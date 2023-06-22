@@ -51,6 +51,14 @@
             android:hint="@string/companion_name_example"
             android:textSize="@dimen/body_large_size" />
 
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/companion_spinner"
+            android:layout_width="@dimen/start_match_layout_edit_text_width"
+            android:layout_height="@dimen/start_match_layout_edit_text_height"
+            android:paddingStart="@dimen/edit_text_inner_padding"
+            android:paddingEnd="@dimen/edit_text_inner_padding"
+            android:textSize="@dimen/body_large_size"/>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/start_match_button"
             android:layout_width="@dimen/button_width"
