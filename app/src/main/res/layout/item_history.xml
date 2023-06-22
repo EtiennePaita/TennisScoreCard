@@ -1,35 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="@dimen/item_history_vertical_margin"
-    android:paddingHorizontal="@dimen/item_history_horizontal_margin"
-    android:gravity="center_vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_history_container"
-    android:orientation="horizontal">
+    app:cardCornerRadius="@dimen/items_corner_radius"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/player_1_name"
-        android:layout_width="0dp"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/body_large_size"
-        android:textAlignment="center"
-        android:layout_weight="1"/>
+        android:paddingVertical="@dimen/item_history_vertical_margin"
+        android:paddingHorizontal="@dimen/item_history_horizontal_margin"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/player_1_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/body_large_size"
+            android:textAlignment="center"
+            android:layout_weight="1"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/vs"
-        android:textStyle="bold"
-        android:paddingHorizontal="@dimen/item_history_vs_horizontal_margin"
-        android:textSize="@dimen/h2_size"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vs"
+            android:textStyle="bold"
+            android:paddingHorizontal="@dimen/item_history_vs_horizontal_margin"
+            android:textSize="@dimen/h2_size"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/player_2_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/body_large_size"
-        android:textAlignment="center"
-        android:layout_weight="1"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/player_2_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/body_large_size"
+            android:textAlignment="center"
+            android:layout_weight="1"/>
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.cardview.widget.CardView>

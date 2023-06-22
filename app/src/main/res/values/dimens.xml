@@ -6,6 +6,7 @@
     <dimen name="header_cta_size">60dp</dimen>
     <dimen name="page_empty_messages_top_margin">60dp</dimen>
     <dimen name="page_empty_messages_horizontal_margin">40dp</dimen>
+    <dimen name="items_corner_radius">15dp</dimen>
 
     <!-- PlayersActivity dimens -->
     <dimen name="item_player_horizontal_margin">30dp</dimen>
