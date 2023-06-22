@@ -4,10 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp"
     tools:context=".ui.activities.MainActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/background"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/main_background_content_description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/main_Layout"
@@ -16,95 +24,71 @@
         android:background="@drawable/background_with_rounded_corners"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/main_layout_top_margin"
+        android:layout_marginStart="@dimen/screen_horizontal_margin"
+        android:layout_marginEnd="@dimen/screen_horizontal_margin"
+        android:paddingVertical="@dimen/start_match_layout_vertical_padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/text_view"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/start_match_layout_text_width"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:paddingTop="9dp"
-            android:text="TENNISCORE"
-            android:textAlignment="center"
+            android:layout_marginBottom="@dimen/start_match_layout_text_bottom_margin"
+            android:text="@string/companion_name"
             android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/winner_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="40dp"
-            android:textAlignment="center"
-            android:textSize="16dp" />
-
-        <TextView
-            android:id="@+id/label_companion"
-            android:layout_width="192dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Companion name"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-
-        <!--<androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/go_to_players_button"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/background_with_rounded_corners"
-            android:text="@string/my_play_companions"
-            android:textAllCaps="false" />-->
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/go_to_players_button"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:background="@drawable/background_with_rounded_corners"
-            android:hint="@string/player_name_hint"
-            android:paddingLeft="8sp"
-            android:paddingRight="0sp"
-            android:text="Companion name"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/label_player"
-            android:layout_width="192dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="8dp"
-            android:text="Player name"
-            android:textColor="@color/black"
+            android:textSize="@dimen/body_large_size"
             android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/player_name_edit_text"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
+            android:id="@+id/go_to_players_button"
+            android:layout_width="@dimen/start_match_layout_edit_text_width"
+            android:layout_height="@dimen/start_match_layout_edit_text_height"
             android:background="@drawable/background_with_rounded_corners"
-            android:hint="@string/player_name_hint"
-            android:paddingLeft="16sp"
-            android:textSize="14sp" />
+            android:paddingStart="@dimen/edit_text_inner_padding"
+            android:paddingEnd="@dimen/edit_text_inner_padding"
+            android:hint="@string/companion_name_example"
+            android:textSize="@dimen/body_large_size" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/start_match_button"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/start_match_layout_start_button_height"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="23dp"
+            android:layout_marginTop="@dimen/start_match_layout_start_button_top_margin"
             android:background="@drawable/background_with_rounded_corners"
             android:backgroundTint="@color/Accent"
-            android:text="Start match"
+            android:text="@string/start_match"
             android:textColor="@color/container" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/match_history_button"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="@dimen/start_match_layout_start_button_height"
+        android:background="@drawable/background_with_rounded_corners"
+        android:textColor="@color/Accent"
+        android:text="@string/history_title"
+        android:layout_marginTop="@dimen/main_cta_spacing"
+        app:layout_constraintTop_toBottomOf="@id/main_Layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/companions_button"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="@dimen/start_match_layout_start_button_height"
+        android:background="@drawable/background_with_rounded_corners"
+        android:textColor="@color/Accent"
+        android:text="@string/companions"
+        android:layout_marginTop="@dimen/main_cta_spacing"
+        app:layout_constraintTop_toBottomOf="@id/match_history_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

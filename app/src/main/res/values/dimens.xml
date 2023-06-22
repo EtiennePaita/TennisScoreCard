@@ -7,6 +7,21 @@
     <dimen name="page_empty_messages_top_margin">60dp</dimen>
     <dimen name="page_empty_messages_horizontal_margin">40dp</dimen>
     <dimen name="items_corner_radius">15dp</dimen>
+    <dimen name="edit_text_inner_padding">16dp</dimen>
+    <dimen name="button_width">200dp</dimen>
+
+
+    <!-- MainActivity dimens -->
+    <dimen name="start_match_layout_vertical_padding">25dp</dimen>
+    <dimen name="start_match_layout_text_width">192dp</dimen>
+    <dimen name="start_match_layout_text_bottom_margin">8dp</dimen>
+    <dimen name="start_match_layout_edit_text_width">200dp</dimen>
+    <dimen name="start_match_layout_edit_text_height">50dp</dimen>
+    <dimen name="start_match_layout_start_button_height">60dp</dimen>
+    <dimen name="start_match_layout_start_button_top_margin">20dp</dimen>
+    <dimen name="main_layout_top_margin">50dp</dimen>
+    <dimen name="main_cta_spacing">35dp</dimen>
+
 
     <!-- PlayersActivity dimens -->
     <dimen name="item_player_horizontal_margin">30dp</dimen>

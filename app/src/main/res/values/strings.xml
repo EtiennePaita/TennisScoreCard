@@ -9,6 +9,13 @@
     <string name="vs">VS</string>
     <string name="back_button_content_description">Back button</string>
 
+    <!-- Main -->
+    <string name="companion_name">Companion name</string>
+    <string name="companion_name_example">Roger Federer</string>
+    <string name="start_match">Start match</string>
+    <string name="main_background_content_description">Tennis field background image</string>
+    <string name="companions">Companions</string>
+
     <!-- History -->
     <string name="history_title">Match history</string>
     <string name="history_not_found_error">No history of match found</string>

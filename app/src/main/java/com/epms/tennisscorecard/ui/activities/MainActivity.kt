@@ -61,9 +61,12 @@ class MainActivity : AppCompatActivity() {
                 startActivity(MatchActivity.newIntent(this, p1, p2))
             }
         }*/
-        /*binding.matchHistoryButton.setOnClickListener {
+        binding.matchHistoryButton.setOnClickListener {
             startActivity(Intent(this, HistoryActivity::class.java))
-        }*/
+        }
+        binding.companionsButton.setOnClickListener {
+            startActivity(Intent(this, PlayersActivity::class.java))
+        }
     }
 
     private fun setObservers() {
