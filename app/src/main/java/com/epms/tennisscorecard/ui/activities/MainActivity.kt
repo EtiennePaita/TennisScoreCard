@@ -59,6 +59,9 @@ class MainActivity : BaseActivity() {
                 startActivity(MatchActivity.newIntent(this, p1, p2))
             }
         }
+        binding.matchHistoryButton.setOnClickListener {
+            startActivity(Intent(this, HistoryActivity::class.java))
+        }
     }
 
     private fun setObservers() {

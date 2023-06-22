@@ -62,4 +62,12 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"/>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/match_history_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/history_title"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"/>
+
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -6,4 +6,10 @@
     <string name="player_name_hint">Player name</string>
     <string name="create_player_cta">Create a player</string>
     <string name="my_play_companions">My play companions</string>
+    <string name="vs">VS</string>
+    <string name="back_button_content_description">Back button</string>
+
+    <!-- History -->
+    <string name="history_title">Match history</string>
+    <string name="history_not_found_error">No history of match found</string>
 </resources>
