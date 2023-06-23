@@ -3,6 +3,7 @@
     <color name="black">#FF212121</color>
     <color name="white">#FFFFFFFF</color>
     <color name="container">#E6FFFFFF</color>
+    <color name="row">#F3F6F8</color>
     <color name="Accent">#CC6328</color>
     <color name="green">#5CCC28</color>
     <color name="transparent">#00000000</color>

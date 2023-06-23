@@ -1,9 +1,11 @@
 package com.epms.tennisscorecard.ui.adapters
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.epms.tennisscorecard.R
 import com.epms.tennisscorecard.databinding.ItemPlayerBinding
 import com.epms.tennisscorecard.domain.models.Player
 
@@ -27,6 +29,12 @@ class PlayersAdapter(
         val viewHolder: PlayerViewHolder = holder as PlayerViewHolder
         players!![viewHolder.adapterPosition]?.let { player ->
             viewHolder.itemBinding.playerNameText.text = player.name
+            if (viewHolder.adapterPosition % 2 == 0) {
+                viewHolder.itemBinding.playerRow.setBackgroundColor(
+                    viewHolder.itemBinding.playerRow.context.getColor(R.color.white))
+            } else {
+                viewHolder.itemBinding.playerRow.setBackgroundColor(viewHolder.itemBinding.playerRow.context.getColor(R.color.row))
+            }
             viewHolder.itemBinding.playerNameText.setOnClickListener {
                 listener.onPlayerClick(player)
             }
