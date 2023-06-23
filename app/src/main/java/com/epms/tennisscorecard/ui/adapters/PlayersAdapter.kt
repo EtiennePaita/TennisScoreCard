@@ -27,15 +27,14 @@ class PlayersAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val viewHolder: PlayerViewHolder = holder as PlayerViewHolder
-        players!![position]?.let { player ->
+        players!![viewHolder.adapterPosition]?.let { player ->
             viewHolder.itemBinding.playerNameText.text = player.name
-
-            if (position % 2 == 0) {
-                viewHolder.itemBinding.playerRow.setBackgroundResource(R.color.white)
+            if (viewHolder.adapterPosition % 2 == 0) {
+                viewHolder.itemBinding.playerRow.setBackgroundColor(
+                    viewHolder.itemBinding.playerRow.context.getColor(R.color.white))
             } else {
-                viewHolder.itemBinding.playerRow.setBackgroundResource(R.color.container)
+                viewHolder.itemBinding.playerRow.setBackgroundColor(viewHolder.itemBinding.playerRow.context.getColor(R.color.row))
             }
-
             viewHolder.itemBinding.playerNameText.setOnClickListener {
                 listener.onPlayerClick(player)
             }

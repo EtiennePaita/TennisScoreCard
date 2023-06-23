@@ -17,13 +17,10 @@
         android:clipToPadding="false"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:paddingStart="@dimen/screen_horizontal_margin"
-        android:paddingEnd="@dimen/screen_horizontal_margin"
-        android:paddingTop="@dimen/screen_horizontal_margin"
-        app:layout_constraintTop_toBottomOf="@id/header"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/header" />
 
     <TextView
         android:id="@+id/no_players_text_view"
