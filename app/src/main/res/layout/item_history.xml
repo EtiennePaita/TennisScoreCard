@@ -23,7 +23,7 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:weightSum="3"
-            android:gravity="center"> <!-- Ajouter cette ligne -->
+            android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/player_1_name"
@@ -57,7 +57,7 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:weightSum="3"
-            android:gravity="center"> <!-- Ajouter cette ligne -->
+            android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/player_2_name"

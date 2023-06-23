@@ -31,9 +31,6 @@ class HistoryAdapter(
             viewHolder.itemBinding.historyPlayer1Score.text = match.userScore.currentGamePoints.toString()
             viewHolder.itemBinding.player2Name.text = match.opponent.name
             viewHolder.itemBinding.historyPlayer2Score.text = match.opponentScore.currentGamePoints.toString()
-            println( "HISTORY A: " + match.userScore.toString())
-            println( "HISTORY B: " + match.opponentScore.toString())
-
 
             viewHolder.itemBinding.itemHistoryContainer.setOnClickListener {
                 listener.onMatchClick(match.matchId)
