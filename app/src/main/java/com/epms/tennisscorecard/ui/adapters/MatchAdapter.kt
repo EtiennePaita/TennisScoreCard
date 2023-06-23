@@ -24,6 +24,10 @@ class MatchAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val player2Sets = match.player2State.getSets()
 
             viewHolder.itemBinding.setIndicator.text = "Set ${viewHolder.adapterPosition + 1}"
+            viewHolder.itemBinding.player1ScoreSet.text =
+                player1Sets[viewHolder.adapterPosition].gameScore.toString()
+            viewHolder.itemBinding.player2ScoreSet.text =
+                player2Sets[viewHolder.adapterPosition].gameScore.toString()
         }
     }
 
