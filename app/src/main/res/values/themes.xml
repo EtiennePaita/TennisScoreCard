@@ -2,7 +2,9 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.TennisScoreCard" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/Accent</item>
+        <item name="colorPrimaryDark">@color/Accent</item>
+        <item name="colorPrimaryVariant">@color/Accent</item>
     </style>
 
     <style name="Theme.TennisScoreCard" parent="Base.Theme.TennisScoreCard" />
