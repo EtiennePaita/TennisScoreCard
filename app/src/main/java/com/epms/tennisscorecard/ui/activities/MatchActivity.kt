@@ -4,12 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.epms.tennisscorecard.R
 import com.epms.tennisscorecard.domain.models.Match
 import com.epms.tennisscorecard.domain.models.MatchState
 import com.epms.tennisscorecard.domain.models.Player
 import com.epms.tennisscorecard.domain.models.PlayerScore
 import com.epms.tennisscorecard.databinding.ActivityMatchBinding
+import com.epms.tennisscorecard.databinding.AlertGetNameBinding
+import com.epms.tennisscorecard.ui.adapters.HistoryAdapter
+import com.epms.tennisscorecard.ui.adapters.MatchAdapter
 import com.epms.tennisscorecard.ui.viewModels.MatchViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -21,6 +26,7 @@ class MatchActivity: AppCompatActivity() {
     private lateinit var opponent: Player
     private lateinit var user: Player
     private lateinit var match: Match
+    private lateinit var adapter: MatchAdapter
     private var currentMatchEntityState: MatchState? = null
     private val matchViewModel: MatchViewModel by viewModels()
 
@@ -28,7 +34,7 @@ class MatchActivity: AppCompatActivity() {
         private const val opponentKey = "opponent_player_key"
         private const val userKey = "user_player_key"
 
-        fun newIntent(context: Context, jsonOpponentPlayer: String, jsonUserPlayer: String): Intent {
+        fun newIntent(context: Context, jsonUserPlayer: String, jsonOpponentPlayer: String): Intent {
             return Intent(context, MatchActivity::class.java).apply {
                 putExtra(opponentKey, jsonOpponentPlayer)
                 putExtra(userKey, jsonUserPlayer)
@@ -43,6 +49,7 @@ class MatchActivity: AppCompatActivity() {
 
         setupUI()
         setupMatch()
+        setRecyclerView()
         setUIListeners()
         setObservers()
     }
@@ -60,7 +67,7 @@ class MatchActivity: AppCompatActivity() {
     private fun setupMatch() {
         match = Match(user, opponent)
         binding.player1Name.text = user.name
-        binding.player2Name.text = user.name
+        binding.player2Name.text = opponent.name
     }
 
     private fun setUIListeners() {
@@ -75,38 +82,57 @@ class MatchActivity: AppCompatActivity() {
     private fun setObservers() {
         match.matchState.observe(this) {
             currentMatchEntityState = it
+            this.adapter.setData(it)
             when (it) {
                 is MatchState.InProgress -> {
                     updateUIScore(it)
                 }
                 is MatchState.IsOver -> {
                     updateUIScore(it)
-                    /*binding.player1ScoreButton.isEnabled = false
-                    binding.player2ScoreButton.isEnabled = false
-                    */
-                    //binding.winnerText.text = "Winner : ${it.winner.name}"
-
-                    //TODO : showVictoryPopup -> save match -> finish()
+                    binding.buttonIncrementPlayer1.isEnabled = false
+                    binding.buttonIncrementPlayer2.isEnabled = false
 
                     matchViewModel.insertMatch(it, match.winningSets)
+
+                    showVictoryPopup()
                 }
             }
         }
     }
 
+    private fun setRecyclerView() {
+        this.adapter = MatchAdapter()
+        binding.matchSetsRecyclerview.adapter = this.adapter
+        binding.matchSetsRecyclerview.setHasFixedSize(true)
+    }
+
     private fun updateUIScore(matchState: MatchState) {
-        //Get board score
         binding.player1Score.text = getScoreBoardOf(matchState.player1State)
         binding.player2Score.text = getScoreBoardOf(matchState.player2State)
     }
-    private fun getScoreBoardOf(playerScore: PlayerScore): String {
-        var scoreBoard = "${playerScore.player.name} : "
-        playerScore.getSets().forEach {
-            scoreBoard += "${it.gameScore} | "
+
+    private fun getScoreBoardOf(playerScore: PlayerScore): String =
+        if(playerScore.hasAdvantage()) "A" else playerScore.getPoints().toString()
+
+
+    private fun showVictoryPopup() {
+        /*val builder = AlertDialog.Builder(this)
+        builder.setCancelable(false)
+        val alertdialogView = builder.create()
+        val alertBinding = AlertGetNameBinding.inflate(layoutInflater)
+        alertdialogView.setView(alertBinding.root)
+        alertdialogView.window?.setBackgroundDrawableResource(R.color.transparent)
+
+        alertBinding.registerButton.setOnClickListener {
+            if (alertBinding.userNameEditText.text?.isNotBlank() == true) {
+                mainViewModel.setUser(alertBinding.userNameEditText.text.toString())
+                alertdialogView.dismiss()
+            }
         }
-        scoreBoard += if(playerScore.hasAdvantage()) "A" else playerScore.getPoints()
-        return scoreBoard
+
+        alertdialogView.show()
+         */
+        finish()
     }
 
-    //private fun show
 }

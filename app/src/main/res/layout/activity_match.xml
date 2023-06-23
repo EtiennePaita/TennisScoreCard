@@ -33,7 +33,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:orientation="horizontal">
 
@@ -74,9 +74,8 @@
 
             <TextView
                 android:id="@+id/text_view2"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:gravity="center"
                 android:text="VS"
                 android:textAlignment="center"
@@ -84,7 +83,7 @@
                 android:textSize="50sp" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -127,7 +126,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="horizontal">
@@ -143,7 +142,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="end"
@@ -161,53 +160,21 @@
 
         </LinearLayout>
 
-        <TableLayout
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/match_sets_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="30dp">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="21dp"
-                android:paddingRight="21dp">
-
-                <!-- Colonne 1 -->
-
-                <TextView
-                    android:id="@+id/player_1_score_set"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="1"
-                    android:textColor="@color/green" />
-
-                <!-- Colonne 2 -->
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Set 1"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:isScrollContainer="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/header"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
 
-                <!-- Colonne 3 -->
-                <TextView
-                    android:id="@+id/player_2_score_set"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="0"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/Accent" />
-
-            </TableRow>
-
-        </TableLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
