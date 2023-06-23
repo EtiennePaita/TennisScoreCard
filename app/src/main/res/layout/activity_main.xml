@@ -41,16 +41,6 @@
             android:textSize="@dimen/body_large_size"
             android:textStyle="bold" />
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/name_edit_text"
-            android:layout_width="@dimen/start_match_layout_edit_text_width"
-            android:layout_height="@dimen/start_match_layout_edit_text_height"
-            android:background="@drawable/background_with_rounded_corners"
-            android:paddingStart="@dimen/edit_text_inner_padding"
-            android:paddingEnd="@dimen/edit_text_inner_padding"
-            android:hint="@string/companion_name_example"
-            android:textSize="@dimen/body_large_size" />
-
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/companion_spinner"
             android:layout_width="@dimen/start_match_layout_edit_text_width"
