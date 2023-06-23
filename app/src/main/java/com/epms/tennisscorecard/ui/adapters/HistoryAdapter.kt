@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.epms.tennisscorecard.R
+import com.epms.tennisscorecard.data.local.entities.Score
 import com.epms.tennisscorecard.databinding.ItemHistoryBinding
 import com.epms.tennisscorecard.domain.models.MatchRecap
 
@@ -28,9 +29,13 @@ class HistoryAdapter(
         val viewHolder: MatchHistoryViewHolder = holder as MatchHistoryViewHolder
         matches!![viewHolder.adapterPosition]?.let { match ->
             viewHolder.itemBinding.player1Name.text = match.user.name
-            viewHolder.itemBinding.historyPlayer1Score.text = match.userScore.toString()
+            viewHolder.itemBinding.historyPlayer1Score.text = getScore(match.userScore)
             viewHolder.itemBinding.player2Name.text = match.opponent.name
-            viewHolder.itemBinding.historyPlayer2Score.text = match.opponentScore.toString()
+            viewHolder.itemBinding.historyPlayer2Score.text = getScore(match.opponentScore)
+            println( "HISTORY A: " + match.userScore.toString())
+            println( "HISTORY B: " + match.opponentScore.toString())
+
+
             viewHolder.itemBinding.itemHistoryContainer.setOnClickListener {
                 listener.onMatchClick(match.matchId)
             }
@@ -48,6 +53,7 @@ class HistoryAdapter(
                 )
             )
 
+
             if (!match.isOver) {
                 //TODO : show icon or text "Match paused"
             }
@@ -62,6 +68,15 @@ class HistoryAdapter(
     fun setData(entities: List<MatchRecap?>?) {
         matches = entities
         notifyDataSetChanged()
+    }
+
+    private fun getScore(playerScore: Score): String {
+        var score = ""
+        playerScore.sets.forEach {
+            score += "| ${it.gameScore} "
+        }
+
+        return "$score |"
     }
 
     class MatchHistoryViewHolder(val itemBinding: ItemHistoryBinding) :
