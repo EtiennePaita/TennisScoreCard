@@ -9,8 +9,9 @@
     app:cardUseCompatPadding="true">
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/height"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="120dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingHorizontal="@dimen/item_history_horizontal_margin"
@@ -21,21 +22,20 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:weightSum="3">
+            android:weightSum="3"
+            android:gravity="center"> <!-- Ajouter cette ligne -->
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/player_1_name"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:textSize="@dimen/body_large_size" />
 
             <TextView
                 android:id="@+id/history_player_1_score"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:text="0"
                 android:textAlignment="center"
                 android:textColor="@color/black" />
@@ -56,21 +56,21 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:weightSum="3">
+            android:weightSum="3"
+            android:gravity="center"> <!-- Ajouter cette ligne -->
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/player_2_name"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
                 android:textAlignment="center"
                 android:textSize="@dimen/body_large_size" />
 
             <TextView
                 android:id="@+id/history_player_2_score"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:text="0"
                 android:textAlignment="center"
                 android:textColor="@color/black" />

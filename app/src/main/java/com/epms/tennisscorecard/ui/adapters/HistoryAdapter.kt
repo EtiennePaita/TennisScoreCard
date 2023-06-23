@@ -28,9 +28,13 @@ class HistoryAdapter(
         val viewHolder: MatchHistoryViewHolder = holder as MatchHistoryViewHolder
         matches!![viewHolder.adapterPosition]?.let { match ->
             viewHolder.itemBinding.player1Name.text = match.user.name
-            viewHolder.itemBinding.historyPlayer1Score.text = match.userScore.toString()
+            viewHolder.itemBinding.historyPlayer1Score.text = match.userScore.currentGamePoints.toString()
             viewHolder.itemBinding.player2Name.text = match.opponent.name
-            viewHolder.itemBinding.historyPlayer2Score.text = match.opponentScore.toString()
+            viewHolder.itemBinding.historyPlayer2Score.text = match.opponentScore.currentGamePoints.toString()
+            println( "HISTORY A: " + match.userScore.toString())
+            println( "HISTORY B: " + match.opponentScore.toString())
+
+
             viewHolder.itemBinding.itemHistoryContainer.setOnClickListener {
                 listener.onMatchClick(match.matchId)
             }
@@ -47,6 +51,7 @@ class HistoryAdapter(
                     else R.color.black
                 )
             )
+
 
             if (!match.isOver) {
                 //TODO : show icon or text "Match paused"
