@@ -18,15 +18,15 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/main_Layout"
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_horizontal_margin"
+        android:layout_marginTop="@dimen/main_layout_top_margin"
+        android:layout_marginEnd="@dimen/screen_horizontal_margin"
         android:background="@drawable/background_with_rounded_corners"
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/main_layout_top_margin"
-        android:layout_marginStart="@dimen/screen_horizontal_margin"
-        android:layout_marginEnd="@dimen/screen_horizontal_margin"
         android:paddingVertical="@dimen/start_match_layout_vertical_padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +47,25 @@
             android:layout_height="@dimen/start_match_layout_edit_text_height"
             android:paddingStart="@dimen/edit_text_inner_padding"
             android:paddingEnd="@dimen/edit_text_inner_padding"
-            android:textSize="@dimen/body_large_size"/>
+            android:textSize="@dimen/body_large_size" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/companions_button"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/start_match_layout_start_button_height"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/background_with_rounded_corners"
+            android:text="@string/companions"
+            android:textColor="@color/Accent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/match_history_button"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/start_match_layout_start_button_height"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/background_with_rounded_corners"
+            android:text="@string/history_title"
+            android:textColor="@color/Accent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/start_match_button"
@@ -61,32 +79,6 @@
             android:textColor="@color/container" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/match_history_button"
-        android:layout_width="@dimen/button_width"
-        android:layout_height="@dimen/start_match_layout_start_button_height"
-        android:background="@drawable/background_with_rounded_corners"
-        android:textColor="@color/Accent"
-        android:text="@string/history_title"
-        android:layout_marginTop="@dimen/main_cta_spacing"
-        app:layout_constraintTop_toBottomOf="@id/main_Layout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/companions_button"
-        android:layout_width="@dimen/button_width"
-        android:layout_height="@dimen/start_match_layout_start_button_height"
-        android:background="@drawable/background_with_rounded_corners"
-        android:textColor="@color/Accent"
-        android:text="@string/companions"
-        android:layout_marginTop="@dimen/main_cta_spacing"
-        app:layout_constraintTop_toBottomOf="@id/match_history_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
