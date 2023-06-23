@@ -1,8 +1,10 @@
 package com.epms.tennisscorecard.domain.factories
 
+import com.epms.tennisscorecard.TennisScoreCardApp
 import com.epms.tennisscorecard.domain.models.MatchState
 import com.epms.tennisscorecard.data.local.entities.MatchEntity
 import com.epms.tennisscorecard.data.local.entities.Score
+import com.epms.tennisscorecard.data.local.entities.UserEntity
 import com.epms.tennisscorecard.data.local.entities.toPlayer
 import com.epms.tennisscorecard.domain.models.MatchRecap
 import com.epms.tennisscorecard.domain.models.toPlayerEntity
@@ -12,7 +14,9 @@ object MatchEntityFactory {
     fun createMatchEntity(matchState: MatchState, winningSets: Int): MatchEntity {
 
         return MatchEntity(
-            user = matchState.player1State.player.toPlayerEntity(),
+            user = UserEntity(matchState.player1State.player.name).also {
+                TennisScoreCardApp.user?.let { user -> it.userId = user.id }
+            },
             opponent = matchState.player2State.player.toPlayerEntity(),
             userScore = Score(
                 matchState.player1State.getPoints(),

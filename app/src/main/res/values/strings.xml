@@ -21,7 +21,9 @@
 
     <!-- History -->
     <string name="history_title">Match history</string>
+    <string name="winner">The winner is</string>
     <string name="history_not_found_error">No history of match found</string>
+    <string name="next">Next &#62;</string>
 
     <!-- Players -->
     <string name="players_not_found_error">No companion found</string>

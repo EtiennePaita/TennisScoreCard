@@ -11,11 +11,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import com.epms.tennisscorecard.R
 import com.epms.tennisscorecard.TennisScoreCardApp
-import com.epms.tennisscorecard.domain.models.Match
 import com.epms.tennisscorecard.domain.models.Player
 import com.epms.tennisscorecard.databinding.ActivityMainBinding
 import com.epms.tennisscorecard.databinding.AlertGetNameBinding
-import com.epms.tennisscorecard.domain.models.MatchRecap
+import com.epms.tennisscorecard.domain.models.toMatchPlayer
 import com.epms.tennisscorecard.domain.models.toPlayer
 import com.epms.tennisscorecard.ui.viewModels.MainViewModel
 import com.google.gson.Gson
@@ -24,11 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var match: Match
-    private lateinit var player1: Player
-    private lateinit var player2: Player
     private var allPlayers: List<Player>? = null
-    private var matchHistory: List<MatchRecap>? = null
     private var companionSelected: Player? = null
     private val mainViewModel: MainViewModel by viewModels()
 
@@ -40,28 +35,12 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         if (TennisScoreCardApp.user == null) mainViewModel.getUser()
 
         mainViewModel.getPlayers()
-        setUpTestMatch()
         setUIListeners()
         setObservers()
 
     }
 
-    private fun setUpTestMatch() {
-        player1 = Player(1, "John Smith")
-        player2 = Player(2, "Antoine De LaMarmotte")
-        match = Match(player1, player2)
-    }
-
     private fun setUIListeners() {
-        /*binding.createPlayerButton.setOnClickListener {
-            if (!binding.playerNameEditText.text.isNullOrBlank()) {
-                mainViewModel.insertPlayer(PlayerEntity(binding.playerNameEditText.text.toString()))
-                binding.playerNameEditText.text = null
-            }
-        }*/
-        /*binding.goToPlayersButton.setOnClickListener {
-            startActivity(Intent(this, PlayersActivity::class.java))
-        }*/
         binding.startMatchButton.setOnClickListener {
             TennisScoreCardApp.user?.let { user ->
                 companionSelected?.let { companion ->
@@ -69,7 +48,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     startActivity(
                         MatchActivity.newIntent(
                             this,
-                            gson.toJson(user.toPlayer()),
+                            gson.toJson(user.toMatchPlayer()),
                             gson.toJson(companion)
                         )
                     )
@@ -89,10 +68,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             allPlayers = it
             setupSpinner()
         }
-        /*mainViewModel.matches.observe(this) {
-            matchHistory = it
-            binding.matchCounterText.text = "Match played : ${it?.size ?: 0}"
-        }*/
         mainViewModel.user.observe(this) {
             it?.let {
                 TennisScoreCardApp.user = it
@@ -147,7 +122,5 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         }
     }
 
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-        //TODO("Not yet implemented")
-    }
+    override fun onNothingSelected(p0: AdapterView<*>?) {}
 }

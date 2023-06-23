@@ -35,7 +35,7 @@ class HistoryAdapter(
 
             viewHolder.itemBinding.player1Name.setTextColor(
                 viewHolder.itemBinding.player1Name.context.getColor(
-                    if (match.isOver && match.winnerId == match.user.id) R.color.green
+                    if (match.isOver && match.winnerId == -1) R.color.green
                     else R.color.black
                 )
             )

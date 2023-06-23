@@ -8,4 +8,5 @@ data class User(
 )
 
 fun User.toPlayer() = Player(this.id, this.name)
+fun User.toMatchPlayer() = Player(-1, this.name)
 fun User.toUserEntity() = UserEntity(this.name).also { it.userId = this.id }

@@ -33,6 +33,8 @@
     <dimen name="item_history_vertical_margin">30dp</dimen>
     <dimen name="item_history_vs_horizontal_margin">15dp</dimen>
 
+    <!-- Match dimens -->
+    <dimen name="trophy_animation_size">100dp</dimen>
 
     <!-- Text dimens -->
     <dimen name="h1_size">34sp</dimen>

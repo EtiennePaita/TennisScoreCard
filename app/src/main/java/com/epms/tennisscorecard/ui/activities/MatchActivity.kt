@@ -13,6 +13,7 @@ import com.epms.tennisscorecard.domain.models.Player
 import com.epms.tennisscorecard.domain.models.PlayerScore
 import com.epms.tennisscorecard.databinding.ActivityMatchBinding
 import com.epms.tennisscorecard.databinding.AlertGetNameBinding
+import com.epms.tennisscorecard.databinding.AlertWinnerBinding
 import com.epms.tennisscorecard.ui.adapters.HistoryAdapter
 import com.epms.tennisscorecard.ui.adapters.MatchAdapter
 import com.epms.tennisscorecard.ui.viewModels.MatchViewModel
@@ -94,7 +95,7 @@ class MatchActivity: AppCompatActivity() {
 
                     matchViewModel.insertMatch(it, match.winningSets)
 
-                    showVictoryPopup()
+                    showVictoryPopup(it.winner.name)
                 }
             }
         }
@@ -115,24 +116,20 @@ class MatchActivity: AppCompatActivity() {
         if(playerScore.hasAdvantage()) "A" else playerScore.getPoints().toString()
 
 
-    private fun showVictoryPopup() {
-        /*val builder = AlertDialog.Builder(this)
+    private fun showVictoryPopup(winnerName: String) {
+        val builder = AlertDialog.Builder(this)
         builder.setCancelable(false)
         val alertdialogView = builder.create()
-        val alertBinding = AlertGetNameBinding.inflate(layoutInflater)
+        val alertBinding = AlertWinnerBinding.inflate(layoutInflater)
         alertdialogView.setView(alertBinding.root)
         alertdialogView.window?.setBackgroundDrawableResource(R.color.transparent)
 
-        alertBinding.registerButton.setOnClickListener {
-            if (alertBinding.userNameEditText.text?.isNotBlank() == true) {
-                mainViewModel.setUser(alertBinding.userNameEditText.text.toString())
-                alertdialogView.dismiss()
-            }
+        alertBinding.winnerName.text = winnerName
+        alertBinding.nextButton.setOnClickListener {
+            finish()
         }
 
         alertdialogView.show()
-         */
-        finish()
     }
 
 }

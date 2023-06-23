@@ -17,7 +17,7 @@ import com.epms.tennisscorecard.domain.models.Set
 )
 data class MatchEntity(
     @Embedded(prefix = "user_")
-    val user: PlayerEntity,
+    val user: UserEntity,
     @Embedded(prefix = "opponent_")
     val opponent: PlayerEntity,
     @ColumnInfo(name = "user_score")
